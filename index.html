@@ -20,6 +20,7 @@
   --accent-gold: #D97706;
   --accent-green: #10B981;
   --accent-red: #EF4444;
+  --accent-ig: #E1306C;
   --radius: 18px;
   --font-display: 'Space Grotesk', sans-serif;
   --font-body: 'Inter', sans-serif;
@@ -36,7 +37,7 @@ body{
   position:relative;
 }
 ::selection{background:var(--accent-blue);color:#ffffff;}
-::-webkit-scrollbar{width:8px;}
+::-webkit-scrollbar{width:8px;height:6px;}
 ::-webkit-scrollbar-thumb{background:rgba(2, 132, 199, 0.3);border-radius:4px;}
 
 /* ---------- Ambient starfield + wave layer ---------- */
@@ -73,6 +74,9 @@ body{
   color: var(--navy-deep);
 }
 .intro-sub{max-width:580px;color:var(--text-muted);font-size:15.5px;line-height:1.6;margin-bottom:38px;}
+.intro-buttons{
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center;
+}
 #dive-btn{
   position:relative;font-family:var(--font-display);font-weight:600;font-size:16px;
   color:#ffffff;background:linear-gradient(120deg, var(--accent-blue), var(--navy-dark));
@@ -84,31 +88,115 @@ body{
 #dive-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -4px rgba(2,132,199,0.5);}
 #dive-btn:active{transform:translateY(0);}
 
+.ig-intro-btn {
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-display);font-weight:600;font-size:15px;
+  color:#ffffff;text-decoration:none;
+  background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  padding:16px 28px;border-radius:999px;
+  box-shadow:0 10px 25px -5px rgba(225, 48, 108, 0.4);
+  transition:transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ig-intro-btn:hover{transform:translateY(-2px);box-shadow:0 14px 30px -4px rgba(225, 48, 108, 0.6);}
+
 /* ---------- App shell ---------- */
 #app{position:relative;z-index:1;min-height:100vh;opacity:0;transition:opacity 0.8s ease 0.1s;}
 #app.show{opacity:1;}
 
 .topbar{
   position:sticky;top:0;z-index:20;
-  display:flex;align-items:center;justify-content:space-between;gap:20px;
-  padding:14px 28px;backdrop-filter:blur(14px);
-  background:rgba(224, 242, 254, 0.85);border-bottom:1px solid rgba(255,255,255,0.6);
+  display:flex;flex-direction:column;gap:8px;
+  padding:12px 20px 8px;backdrop-filter:blur(14px);
+  background:rgba(224, 242, 254, 0.92);border-bottom:1px solid rgba(255,255,255,0.6);
   box-shadow:0 4px 20px rgba(0,0,0,0.03);
 }
+
+.topbar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--navy-deep);}
 .brand-logos{display:flex;align-items:center;gap:8px;}
 .brand-logo-img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid #ffffff;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
 
-nav.tabs{display:flex;gap:6px;flex-wrap:wrap;}
-nav.tabs button{
-  font-family:var(--font-body);font-size:13.5px;font-weight:500;color:var(--text-muted);
-  background:transparent;border:1px solid transparent;padding:9px 16px;border-radius:999px;
-  cursor:pointer;transition:all 0.2s ease;white-space:nowrap;
+/* Instagram Header Button */
+.ig-topbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
 }
-nav.tabs button:hover{color:var(--navy-dark);background:rgba(255,255,255,0.6);}
-nav.tabs button.active{color:#ffffff;background:var(--accent-blue);font-weight:600;box-shadow:0 4px 12px rgba(2,132,199,0.3);}
+.ig-topbar-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(225, 48, 108, 0.4);
+}
 
-main{max-width:1080px;margin:0 auto;padding:48px 24px 120px;}
+/* Navigasi Scrollable Horizontal */
+nav.tabs {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 2px;
+  -webkit-overflow-scrolling: touch;
+}
+nav.tabs::-webkit-scrollbar {
+  height: 4px;
+}
+nav.tabs::-webkit-scrollbar-thumb {
+  background: rgba(2, 132, 199, 0.2);
+  border-radius: 4px;
+}
+nav.tabs button {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+nav.tabs button:hover {
+  color: var(--navy-dark);
+  background: rgba(255, 255, 255, 0.9);
+}
+nav.tabs button.active {
+  color: #ffffff;
+  background: var(--accent-blue);
+  font-weight: 600;
+  border-color: var(--accent-blue);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+/* Petunjuk Geser Menu */
+.scroll-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--navy-dark);
+  text-align: center;
+  opacity: 0.8;
+  user-select: none;
+  padding-bottom: 2px;
+}
+
+main{max-width:1080px;margin:0 auto;padding:32px 24px 120px;}
 section.tab{display:none;animation:fadein 0.5s ease;}
 section.tab.active{display:block;}
 @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
@@ -143,42 +231,41 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .stat-chip{font-family:var(--font-mono);font-size:12px;color:var(--text-muted);border:1px solid rgba(2,132,199,0.2);padding:8px 14px;border-radius:10px;background:rgba(255,255,255,0.8);}
 .stat-chip b{color:var(--accent-blue);font-size:15px;display:block;font-family:var(--font-display);}
 
-/* ---------- Anggota Kelas Table ---------- */
-.table-responsive {
-  overflow-x: auto;
+.ig-hero-card {
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border: 1px solid rgba(225, 48, 108, 0.2);
 }
-.members-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
-}
-.members-table th, .members-table td {
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(2, 132, 199, 0.15);
-}
-.members-table th {
-  background: rgba(2, 132, 199, 0.1);
+.ig-hero-text {
+  font-size: 13.5px;
   color: var(--navy-deep);
-  font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 500;
 }
-.members-table tr:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-.badge-gender {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 6px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: bold;
-}
+
+/* ---------- Anggota Kelas Table ---------- */
+.table-responsive { overflow-x: auto; }
+.members-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+.members-table th, .members-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(2, 132, 199, 0.15); }
+.members-table th { background: rgba(2, 132, 199, 0.1); color: var(--navy-deep); font-family: var(--font-display); font-weight: 700; }
+.members-table tr:hover { background: rgba(255, 255, 255, 0.5); }
+.badge-gender { display: inline-block; padding: 2px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: bold; }
 .badge-gender.L { background: #DBEAFE; color: #1E40AF; }
 .badge-gender.P { background: #FCE7F3; color: #9D174D; }
 
-/* ---------- Telepon Grup (Group Call) ---------- */
+/* ---------- Telepon & Video Call Realtime ---------- */
+.call-gate-card {
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 32px 24px;
+}
 .call-container {
   display: flex;
   flex-direction: column;
@@ -207,13 +294,12 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
   100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 .call-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 16px;
   width: 100%;
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 10px;
+  padding: 20px;
   background: rgba(15, 23, 42, 0.05);
   border-radius: 16px;
 }
@@ -222,15 +308,26 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  padding: 14px;
+  padding: 20px;
   background: rgba(255, 255, 255, 0.85);
   border-radius: 14px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+}
+.video-preview {
+  width: 100%;
+  height: 160px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #000;
+  display: none;
 }
 .avatar-circle {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background: var(--navy-dark);
   color: #fff;
@@ -275,6 +372,7 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .call-btn.mic { background: var(--navy-dark); }
 .call-btn.mic.muted { background: var(--accent-red); }
 .call-btn.cam { background: var(--navy-dark); }
+.call-btn.cam.active { background: var(--accent-green); }
 .call-btn.end { background: var(--accent-red); }
 
 /* ---------- Chat Global Styles ---------- */
@@ -284,11 +382,7 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
   text-align: center;
   padding: 32px 24px;
 }
-.chat-gate-card p {
-  color: var(--text-muted);
-  font-size: 14.5px;
-  margin-bottom: 24px;
-}
+.chat-gate-card p { color: var(--text-muted); font-size: 14.5px; margin-bottom: 24px; }
 .chat-input-field {
   width: 100%;
   padding: 14px 18px;
@@ -320,55 +414,27 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .chat-gate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(217, 119, 6, 0.4); }
 .gate-error { color: #DC2626; font-size: 13px; font-family: var(--font-mono); margin-top: 12px; display: none; }
 
-.chat-room {
-  display: flex;
-  flex-direction: column;
-  height: 520px;
-}
+.chat-room { display: flex; flex-direction: column; height: 520px; }
 .chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: rgba(255,255,255,0.4);
-  border-radius: 12px;
-  margin-bottom: 16px;
+  flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px;
+  background: rgba(255,255,255,0.4); border-radius: 12px; margin-bottom: 16px;
 }
 .chat-msg {
-  background: #ffffff;
-  padding: 10px 14px;
-  border-radius: 12px;
-  max-width: 80%;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  align-self: flex-start;
+  background: #ffffff; padding: 10px 14px; border-radius: 12px; max-width: 80%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); align-self: flex-start;
 }
-.chat-msg.mine {
-  align-self: flex-end;
-  background: var(--navy-dark);
-  color: #ffffff;
-}
+.chat-msg.mine { align-self: flex-end; background: var(--navy-dark); color: #ffffff; }
 .chat-msg .sender { font-size: 11px; font-family: var(--font-mono); font-weight: 700; color: var(--accent-blue); margin-bottom: 4px; }
 .chat-msg.mine .sender { color: #BAE6FD; }
 .chat-msg .text { font-size: 13.5px; line-height: 1.4; word-break: break-word; }
 .chat-msg .time { font-size: 9.5px; font-family: var(--font-mono); opacity: 0.6; text-align: right; margin-top: 4px; }
 
-.chat-controls {
-  display: flex;
-  gap: 10px;
-}
+.chat-controls { display: flex; gap: 10px; }
 .chat-name-input { width: 130px; }
 .chat-text-input { flex: 1; }
 .chat-send-btn {
-  padding: 0 20px;
-  border-radius: 12px;
-  border: none;
-  background: var(--accent-blue);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 600;
-  cursor: pointer;
+  padding: 0 20px; border-radius: 12px; border: none; background: var(--accent-blue);
+  color: #fff; font-family: var(--font-display); font-weight: 600; cursor: pointer;
 }
 
 /* ---------- Jadwal Piket Grid ---------- */
@@ -411,7 +477,7 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 
 /* ---------- Music player (floating) ---------- */
 #music-fab{
-  position:fixed;top:86px;right:28px;z-index:40;width:58px;height:58px;border-radius:50%;
+  position:fixed;bottom:28px;right:28px;z-index:40;width:58px;height:58px;border-radius:50%;
   border:2px solid #ffffff;cursor:pointer;
   background:linear-gradient(135deg, var(--accent-blue), var(--navy-dark));
   box-shadow:0 10px 25px rgba(2,132,199,0.4);
@@ -423,10 +489,10 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 #music-fab.playing{animation:pulse-fab 1.4s ease-in-out infinite;}
 
 #music-panel{
-  position:fixed;top:154px;right:28px;z-index:39;width:320px;
+  position:fixed;bottom:96px;right:28px;z-index:39;width:320px;
   background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(18px);border:1px solid var(--card-border);
   border-radius:20px;padding:18px;box-shadow:0 20px 40px rgba(0,0,0,0.12);
-  opacity:0;transform:translateY(-10px) scale(0.97);pointer-events:none;transition:all 0.25s ease;
+  opacity:0;transform:translateY(10px) scale(0.97);pointer-events:none;transition:all 0.25s ease;
 }
 #music-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
 .now-playing{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,0.08);}
@@ -471,20 +537,35 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
   <div class="intro-eyebrow">S A T U _ M A J U</div>
   <h1 class="intro-title">Kelas X. Kartini 4</h1>
   <p class="intro-sub">Jangan pernah merasa tertinggal hanya karena perjalananmu berbeda. Setiap orang punya waktunya masing-masing untuk bersinar. Fokuslah memperbaiki diri, menikmati proses, dan terus melangkah meskipun pelan. Karena yang hebat bukan mereka yang tidak pernah jatuh, tapi mereka yang selalu punya alasan untuk bangkit.</p>
-  <button id="dive-btn">Masuk ke Kelas ↴</button>
+  <div class="intro-buttons">
+    <button id="dive-btn">Masuk ke Kelas ↴</button>
+    <a href="https://www.instagram.com/journey.of_kartini4?igsh=MW9wd2QwdW9lMTZkcA==" target="_blank" class="ig-intro-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+      Instagram Kelas
+    </a>
+  </div>
 </div>
 
 <!-- APP -->
 <div id="app">
   <header class="topbar">
-    <div class="brand">
-      <div class="brand-logos">
-        <img src="logo1.png" alt="Logo Kartini 4" class="brand-logo-img">
-        <img src="logo2.jpg" alt="Logo Eufouria" class="brand-logo-img">
+    <div class="topbar-header">
+      <div class="brand">
+        <div class="brand-logos">
+          <img src="logo1.png" alt="Logo Kartini 4" class="brand-logo-img">
+          <img src="logo2.jpg" alt="Logo Eufouria" class="brand-logo-img">
+        </div>
+        <span>Kelas X. Kartini 4</span>
       </div>
-      <span>Kelas X. Kartini 4</span>
+
+      <a href="https://www.instagram.com/journey.of_kartini4?igsh=MW9wd2QwdW9lMTZkcA==" target="_blank" class="ig-topbar-btn" title="Kunjungi Instagram Kelas">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        <span>Instagram</span>
+      </a>
     </div>
-    <nav class="tabs">
+
+    <!-- Scrollable Horizontal Tabs Navigation -->
+    <nav class="tabs" id="nav-tabs">
       <button data-tab="beranda" class="active">Beranda</button>
       <button data-tab="piket">Jadwal Piket</button>
       <button data-tab="anggota">Anggota Kelas</button>
@@ -495,6 +576,9 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       <button data-tab="struktur">Struktur Kelas</button>
       <button data-tab="album">Album Kenangan</button>
     </nav>
+    
+    <!-- TULISAN GESER DITAMBAHKAN DI SINI -->
+    <div class="scroll-hint">← Geser untuk menu lainnya →</div>
   </header>
 
   <button id="music-fab" title="Pemutar musik" aria-label="Buka pemutar musik">
@@ -540,6 +624,13 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
           <div class="stat-row">
             <div class="stat-chip"><b>SMA Negeri 1 Pekalongan</b>Sekolah</div>
             <div class="stat-chip"><b>Ainun Najib, S.Pd.I.</b>Wali Kelas</div>
+          </div>
+          <div class="ig-hero-card">
+            <span class="ig-hero-text">Ikuti dokumentasi keseruan kelas di Instagram:</span>
+            <a href="https://www.instagram.com/journey.of_kartini4?igsh=MW9wd2QwdW9lMTZkcA==" target="_blank" class="ig-topbar-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              @journey.of_kartini4
+            </a>
           </div>
         </div>
         <div class="hero-orb-scene">
@@ -596,9 +687,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
               <th>Agama</th>
             </tr>
           </thead>
-          <tbody id="members-table-body">
-            <!-- Populated via JavaScript -->
-          </tbody>
+          <tbody id="members-table-body"></tbody>
         </table>
       </div>
     </section>
@@ -609,7 +698,6 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       <h1 class="page-title">Chat Global</h1>
       <p class="page-desc">Ruang obrolan bersama seluruh kelas. Demi kenyamanan, gunakan kata sandi frekuensi kelas untuk terhubung.</p>
 
-      <!-- Tampilan Masukkan Kata Sandi -->
       <div id="chat-gate" class="card chat-gate-card">
         <p>Untuk masuk, ucapkan kata sandi frekuensi terlebih dahulu.</p>
         <input type="password" id="chat-pass" class="chat-input-field" placeholder="Ketik kata sandi di sini...">
@@ -617,7 +705,6 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
         <div id="gate-error" class="gate-error">Kata sandi salah. Akses ditolak!</div>
       </div>
 
-      <!-- Tampilan Ruang Obrolan -->
       <div id="chat-room" class="card chat-room" style="display:none;">
         <div class="chat-messages" id="chat-messages"></div>
         <div class="chat-controls">
@@ -628,34 +715,33 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       </div>
     </section>
 
-    <!-- TELEPON GRUP -->
+    <!-- TELEPON GRUP REALTIME -->
     <section class="tab" id="tab-telepon">
-      <div class="eyebrow">Suara & Obrolan</div>
+      <div class="eyebrow">Suara & Video Realtime</div>
       <h1 class="page-title">Telepon Grup Kelas</h1>
-      <p class="page-desc">Ruang panggilan suara interaktif untuk diskusi dan berkumpul secara daring.</p>
+      <p class="page-desc">Ruang panggilan interaktif dengan dukungan kamera dan mikrofon asli.</p>
 
-      <div class="card call-container">
+      <!-- Form Kode Masuk Panggilan -->
+      <div id="call-gate" class="card call-gate-card">
+        <p>Masukkan kode frekuensi panggilan grup kelas untuk bergabung.</p>
+        <input type="password" id="call-pass-input" class="chat-input-field" placeholder="Masukkan kode kelas...">
+        <button id="call-login-btn" class="chat-gate-btn">Bergabung ke Panggilan</button>
+        <div id="call-gate-error" class="gate-error">Kode panggilan salah!</div>
+      </div>
+
+      <!-- Ruang Panggilan Realtime -->
+      <div id="call-room-active" class="card call-container" style="display:none;">
         <div class="call-status-bar">
-          <div class="call-dot"></div>
-          <span id="call-status-text">Panggilan Berlangsung (4 Anggota)</span>
+          <div class="call-dot" id="call-indicator"></div>
+          <span id="call-status-text">Panggilan Berlangsung</span>
         </div>
 
         <div class="call-grid" id="call-grid">
-          <div class="call-avatar-card">
-            <div class="avatar-circle speaking">KH</div>
-            <div style="font-size: 12px; font-weight:600; margin-top: 4px;">Kirana</div>
-          </div>
-          <div class="call-avatar-card">
-            <div class="avatar-circle">NA</div>
-            <div style="font-size: 12px; font-weight:600; margin-top: 4px;">Nevan</div>
-          </div>
-          <div class="call-avatar-card">
-            <div class="avatar-circle">FD</div>
-            <div style="font-size: 12px; font-weight:600; margin-top: 4px;">Farhan</div>
-          </div>
-          <div class="call-avatar-card">
-            <div class="avatar-circle">US</div>
-            <div style="font-size: 12px; font-weight:600; margin-top: 4px;">Uni</div>
+          <!-- Hanya Menampilkan Pengguna Aktif (Tanpa simulasi orang lain) -->
+          <div class="call-avatar-card" id="user-card">
+            <video id="local-video" class="video-preview" autoplay playsinline></video>
+            <div class="avatar-circle speaking" id="user-avatar">KAMU</div>
+            <div style="font-size: 13px; font-weight:600; margin-top: 6px;" id="user-display-name">Kamu (Aktif)</div>
           </div>
         </div>
 
@@ -663,7 +749,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
           <button class="call-btn mic" id="toggle-mic" title="Matikan/Nyalakan Mikrofon">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
           </button>
-          <button class="call-btn cam" id="toggle-cam" title="Kamera">
+          <button class="call-btn cam" id="toggle-cam" title="Nyalakan/Matikan Kamera">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
           </button>
           <button class="call-btn end" id="end-call" title="Tutup Panggilan">
@@ -836,7 +922,7 @@ document.getElementById('dive-btn').addEventListener('click', ()=>{
   app.classList.add('show');
 });
 
-/* ================= Tabs ================= */
+/* ================= Tabs Navigation ================= */
 const tabButtons = document.querySelectorAll('nav.tabs button');
 tabButtons.forEach(btn=>{
   btn.addEventListener('click', ()=>{
@@ -920,7 +1006,7 @@ const chatMsgText = document.getElementById('chat-msg-text');
 const chatSendBtn = document.getElementById('chat-send-btn');
 
 let messages = [
-  { sender: 'Sistem', text: 'Selamat datang di Frekuensi Chat X. Kartini 4!', time: '12:00', system: true }
+  { sender: 'Sistem', text: 'Selamat datang di Frekuensi Chat X. Kartini 4!', time: '12:00' }
 ];
 
 chatLoginBtn.addEventListener('click', attemptLogin);
@@ -968,22 +1054,93 @@ function sendMessage() {
 chatSendBtn.addEventListener('click', sendMessage);
 chatMsgText.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
 
-/* ================= TELEPON GRUP CONTROLS ================= */
+/* ================= TELEPON GRUP REALTIME (REAL AUDIO & VIDEO FEEDBACK) ================= */
+const CALL_PASS = "Xkartini4";
+const callGate = document.getElementById('call-gate');
+const callRoomActive = document.getElementById('call-room-active');
+const callPassInput = document.getElementById('call-pass-input');
+const callLoginBtn = document.getElementById('call-login-btn');
+const callGateError = document.getElementById('call-gate-error');
+
 const toggleMicBtn = document.getElementById('toggle-mic');
-let isMuted = false;
+const toggleCamBtn = document.getElementById('toggle-cam');
+const endCallBtn = document.getElementById('end-call');
+const localVideo = document.getElementById('local-video');
+const userAvatar = document.getElementById('user-avatar');
+
+let localStream = null;
+let isMicOn = true;
+let isCamOn = false;
+
+callLoginBtn.addEventListener('click', attemptCallLogin);
+callPassInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') attemptCallLogin(); });
+
+function attemptCallLogin() {
+  if (callPassInput.value === CALL_PASS) {
+    callGate.style.display = 'none';
+    callRoomActive.style.display = 'flex';
+    callGateError.style.display = 'none';
+    initMediaStream();
+  } else {
+    callGateError.style.display = 'block';
+  }
+}
+
+async function initMediaStream() {
+  try {
+    // Mengambil akses Mikrofon & Kamera Pengguna
+    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+    
+    // Menyalurkan langsung ke elemen video (tanpa muted agar suara dapat didengar langsung)
+    localVideo.srcObject = localStream;
+    localVideo.muted = false; 
+  } catch (err) {
+    console.warn("Akses kamera/mikrofon ditolak atau tidak tersedia:", err);
+  }
+}
 
 toggleMicBtn.addEventListener('click', () => {
-  isMuted = !isMuted;
-  toggleMicBtn.classList.toggle('muted', isMuted);
+  if (localStream) {
+    const audioTrack = localStream.getAudioTracks()[0];
+    if (audioTrack) {
+      isMicOn = !isMicOn;
+      audioTrack.enabled = isMicOn;
+      toggleMicBtn.classList.toggle('muted', !isMicOn);
+      userAvatar.classList.toggle('speaking', isMicOn);
+    }
+  } else {
+    isMicOn = !isMicOn;
+    toggleMicBtn.classList.toggle('muted', !isMicOn);
+    userAvatar.classList.toggle('speaking', isMicOn);
+  }
 });
 
-document.getElementById('end-call').addEventListener('click', () => {
-  document.getElementById('call-status-text').textContent = "Panggilan Berakhir";
-  document.querySelector('.call-dot').style.background = "#EF4444";
-  document.querySelector('.call-dot').style.animation = "none";
+toggleCamBtn.addEventListener('click', () => {
+  if (localStream) {
+    const videoTrack = localStream.getVideoTracks()[0];
+    if (videoTrack) {
+      isCamOn = !isCamOn;
+      videoTrack.enabled = isCamOn;
+      localVideo.style.display = isCamOn ? 'block' : 'none';
+      userAvatar.style.display = isCamOn ? 'none' : 'flex';
+      toggleCamBtn.classList.toggle('active', isCamOn);
+    }
+  }
 });
 
-/* ================= VIDEO KENANGAN (5 Video) ================= */
+endCallBtn.addEventListener('click', () => {
+  if (localStream) {
+    localStream.getTracks().forEach(track => track.stop());
+  }
+  document.getElementById('call-status-text').textContent = "Panggilan Terputus";
+  document.getElementById('call-indicator').style.background = "#EF4444";
+  document.getElementById('call-indicator').style.animation = "none";
+  localVideo.style.display = 'none';
+  userAvatar.style.display = 'flex';
+  userAvatar.classList.remove('speaking');
+});
+
+/* ================= VIDEO KENANGAN ================= */
 const videoItems = [
   {cap:'Momen Kelas #1', src:''},
   {cap:'Momen Kelas #2', src:''},
@@ -1001,7 +1158,7 @@ videoGrid.innerHTML = videoItems.map((item,i)=>{
   </div>`;
 }).join('');
 
-/* ================= FOTO KENANGAN (5 Foto) ================= */
+/* ================= FOTO KENANGAN ================= */
 const photoItems = [
   {cap:'Foto Kenangan #1', src:'foto1.jpg'},
   {cap:'Foto Kenangan #2', src:'foto2.jpg'},
@@ -1019,7 +1176,7 @@ photoGrid.innerHTML = photoItems.map((item,i)=>{
   </div>`;
 }).join('');
 
-/* ================= ALBUM KENANGAN (5 Album) ================= */
+/* ================= ALBUM KENANGAN ================= */
 const albumItems = [
   {cap:'Hari Pertama X. Kartini 4', src:'foto1.jpg'},
   {cap:'Kebersamaan Kelas', src:'foto2.jpg'},
@@ -1090,7 +1247,7 @@ function setPlayingUI(playing){
   playIcon.style.display = playing ? 'none':'block';
   pauseIcon.style.display = playing ? 'block':'none';
   fabIconPlay.style.display = playing ? 'none':'block';
-  fabIconPause.style.display = playing ? 'block':'none';
+  fabIconPause.style.display = playing ? 'none':'block';
   npDisc.classList.toggle('spin', playing);
   musicFab.classList.toggle('playing', playing);
 }
