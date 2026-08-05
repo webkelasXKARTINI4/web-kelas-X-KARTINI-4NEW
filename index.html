@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X. KARTINI 4 - SMA Negeri 1 Pekalongan</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- STARRY BACKGROUND (Latar Bintang Luar Angkasa) -->
+    <div class="stars-bg">
+        <div class="stars-small"></div>
+        <div class="stars-medium"></div>
+        <div class="stars-large"></div>
+        <div class="nebula-glow"></div>
+    </div>
+
+    <!-- HALAMAN SAMBUTAN (HERO LANDING PAGE) -->
+    <section class="hero-landing">
+        <div class="orbit-center">
+            <div class="glow-dot"></div>
+        </div>
+        <span class="sub-motto">S A T U _ M A J U</span>
+        <h1 class="hero-title">Kelas <span class="gradient-text">X. Kartini 4</span></h1>
+        <p class="hero-quote">
+            Jangan pernah merasa tertinggal hanya karena perjalananmu berbeda. Setiap orang punya waktunya masing-masing untuk bersinar. Fokuslah memperbaiki diri, menikmati proses, dan terus melangkah meskipun pelan. Karena yang hebat bukan mereka yang tidak pernah jatuh, tapi mereka yang selalu punya alasan untuk bangkit.
+        </p>
+        <a href="#beranda" class="btn-enter">Masuk ke Kelas ↴</a>
+    </section>
+
+    <!-- HEADER & NAVIGASI UTAMA -->
+    <header class="header-nav">
+        <div class="header-container">
+            <!-- LOGO KIRI -->
+            <div class="logo-box">
+                <div class="circle-gradient"></div>
+                <div class="logo-text">
+                    <h2>Kelas<br>X. Kartini 4</h2>
+                </div>
+            </div>
+
+            <!-- MENU NAVIGASI TENGAH -->
+            <nav class="navbar">
+                <ul class="nav-links">
+                    <li><a href="#beranda" class="nav-btn active">Beranda</a></li>
+                    <li><a href="#piket" class="nav-btn">Jadwal Piket</a></li>
+                    <li><a href="#video" class="nav-btn">Video Kenangan</a></li>
+                    <li><a href="#foto" class="nav-btn">Foto Kenangan</a></li>
+                    <li><a href="#struktur" class="nav-btn">Struktur Kelas</a></li>
+                    <li><a href="#album" class="nav-btn">Album Kenangan</a></li>
+                </ul>
+            </nav>
+
+            <!-- TOMBOL MUSIC PLAYER KANAN -->
+            <button class="music-toggle-btn" id="musicBtn" onclick="toggleMusicModal()" title="Putar Musik">
+                <span class="play-icon">▶</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- POPUP MUSIC PLAYER -->
+    <div class="music-modal" id="musicModal">
+        <div class="music-header">
+            <div class="music-disc"></div>
+            <div class="music-info">
+                <h4 id="currentTitle">Kisah Klasik</h4>
+                <p id="currentArtist">Sheila On 7</p>
+            </div>
+        </div>
+        
+        <audio id="audioPlayer" src="lagu1.mp3"></audio>
+        
+        <div class="music-controls">
+            <button onclick="prevSong()">⏮</button>
+            <button class="btn-play-main" onclick="playPauseAudio()" id="mainPlayBtn">▶</button>
+            <button onclick="nextSong()">⏭</button>
+        </div>
+
+        <div class="playlist">
+            <div class="playlist-item active" onclick="playTrack(0)">
+                <span class="song-num">1</span>
+                <div class="song-details">
+                    <p class="song-title">Kisah Klasik</p>
+                    <p class="song-artist">Sheila On 7</p>
+                </div>
+            </div>
+            <div class="playlist-item" onclick="playTrack(1)">
+                <span class="song-num">2</span>
+                <div class="song-details">
+                    <p class="song-title">Tujuh Belas</p>
+                    <p class="song-artist">Tulus</p>
+                </div>
+            </div>
+            <div class="playlist-item" onclick="playTrack(2)">
+                <span class="song-num">3</span>
+                <div class="song-details">
+                    <p class="song-title">Anak Sekolah</p>
+                    <p class="song-artist">Chrisye</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- KONTEN UTAMA WEBSITES -->
+    <div class="main-container" id="beranda">
+
+        <!-- HEADER SELAMAT DATANG -->
+        <section class="welcome-section">
+            <span class="sub-tag">K O O R D I N A T : 0 °</span>
+            <h1 class="welcome-title">Selamat datang di web kelas X. Kartini 4.</h1>
+            <p class="welcome-text">
+                Satu ruang digital untuk seluruh kelas — mengenal struktur kepengurusan, menyimpan kenangan dalam video dan foto, serta bernostalgia bersama. Tenang seperti laut dalam, luas seperti langit malam.
+            </p>
+
+            <div class="about-card">
+                <span class="card-sub-tag">T E N T A N G &nbsp; R U A N G &nbsp; I N I</span>
+                <p>
+                    Jangan pernah merasa tertinggal hanya karena perjalananmu berbeda. Setiap orang punya waktunya masing-masing untuk bersinar. Fokuslah memperbaiki diri, menikmati proses, dan terus melangkah meskipun pelan.
+                </p>
+            </div>
+        </section>
+
+        <!-- SEKSI JADWAL PIKET KELAS -->
+        <section class="section-block" id="piket">
+            <div class="header-section">
+                <span class="sub-tag">KEBERSIHAN KELAS</span>
+                <h1>Jadwal Piket Kelas</h1>
+                <p>Daftar petugas kebersihan harian kelas X. Kartini 4 SMA Negeri 1 Pekalongan.</p>
+            </div>
+            
+            <div class="piket-grid">
+                <div class="piket-card day-senin">
+                    <div class="piket-header"><h2>Senin</h2></div>
+                    <ol class="piket-list">
+                        <li>A'an</li><li>Agha</li><li>Aisya</li><li>Diva</li><li>Okta</li><li>Kemal</li><li>Nafi</li><li>Difa</li>
+                    </ol>
+                </div>
+                <div class="piket-card day-selasa">
+                    <div class="piket-header"><h2>Selasa</h2></div>
+                    <ol class="piket-list">
+                        <li>Farhan</li><li>Abid</li><li>Cairo</li><li>Adel</li><li>Queena</li><li>Kirana</li><li>Nevan</li>
+                    </ol>
+                </div>
+                <div class="piket-card day-rabu">
+                    <div class="piket-header"><h2>Rabu</h2></div>
+                    <ol class="piket-list">
+                        <li>Uni</li><li>Inez</li><li>Faris</li><li>Nita</li><li>Sultan</li><li>Anam</li><li>Putri</li>
+                    </ol>
+                </div>
+                <div class="piket-card day-kamis">
+                    <div class="piket-header"><h2>Kamis</h2></div>
+                    <ol class="piket-list">
+                        <li>Azam</li><li>Nisa</li><li>Said</li><li>Arsha</li><li>Alfino</li><li>Rangga</li><li>Zaskia</li>
+                    </ol>
+                </div>
+                <div class="piket-card day-jumat">
+                    <div class="piket-header"><h2>Jum'at</h2></div>
+                    <ol class="piket-list">
+                        <li>Hilmy</li><li>Bilqis</li><li>Frananda</li><li>Yasma</li><li>Khansa</li><li>Naufal</li><li>Naura</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARSIP VIDEO KENANGAN -->
+        <section class="section-block" id="video">
+            <div class="header-section">
+                <span class="sub-tag">ARSIP VIDEO</span>
+                <h1>Video Kenangan</h1>
+                <p>Momen-momen berharga dan kebersamaan kelas X. Kartini 4 SMA Negeri 1 Pekalongan.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card"><div class="card-img-box video-box"><div class="video-placeholder"><span>▶ Video</span></div><span class="tag-number">#01</span><div class="card-title-overlay">Momen Kelas #1</div></div></div>
+                <div class="card"><div class="card-img-box video-box"><div class="video-placeholder"><span>▶ Video</span></div><span class="tag-number">#02</span><div class="card-title-overlay">Momen Kelas #2</div></div></div>
+                <div class="card"><div class="card-img-box video-box"><div class="video-placeholder"><span>▶ Video</span></div><span class="tag-number">#03</span><div class="card-title-overlay">Momen Kelas #3</div></div></div>
+                <div class="card"><div class="card-img-box video-box"><div class="video-placeholder"><span>▶ Video</span></div><span class="tag-number">#04</span><div class="card-title-overlay">Momen Kelas #4</div></div></div>
+                <div class="card"><div class="card-img-box video-box"><div class="video-placeholder"><span>▶ Video</span></div><span class="tag-number">#05</span><div class="card-title-overlay">Momen Kelas #5</div></div></div>
+            </div>
+        </section>
+
+        <!-- ARSIP FOTO KENANGAN -->
+        <section class="section-block" id="foto">
+            <div class="header-section">
+                <span class="sub-tag">ARSIP FOTO</span>
+                <h1>Foto Kenangan</h1>
+                <p>Kumpulan foto yang membekukan momen indah perjalanan kelas X. Kartini 4.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card"><div class="card-img-box"><img src="foto1.jpg" alt="Foto 1" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=FOTO+01';"><span class="tag-number">#01</span><div class="card-title-overlay">Foto Kenangan #1</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto2.jpg" alt="Foto 2" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=FOTO+02';"><span class="tag-number">#02</span><div class="card-title-overlay">Foto Kenangan #2</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto3.jpg" alt="Foto 3" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=FOTO+03';"><span class="tag-number">#03</span><div class="card-title-overlay">Foto Kenangan #3</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto4.jpg" alt="Foto 4" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=FOTO+04';"><span class="tag-number">#04</span><div class="card-title-overlay">Foto Kenangan #4</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto5.jpg" alt="Foto 5" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=FOTO+05';"><span class="tag-number">#05</span><div class="card-title-overlay">Foto Kenangan #5</div></div></div>
+            </div>
+        </section>
+
+        <!-- ARSIP ALBUM KENANGAN -->
+        <section class="section-block" id="album">
+            <div class="header-section">
+                <span class="sub-tag">ARSIP VISUAL</span>
+                <h1>Album Kenangan</h1>
+                <p>Koleksi lengkap video dan foto kenangan kelas X. Kartini 4 SMAN 1 Pekalongan.</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card"><div class="card-img-box"><img src="foto1.jpg" alt="Album 1" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=ALBUM+01';"><span class="tag-number">#01</span><div class="card-title-overlay">Hari Pertama X. Kartini 4</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto2.jpg" alt="Album 2" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=ALBUM+02';"><span class="tag-number">#02</span><div class="card-title-overlay">Kebersamaan Kelas</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto3.jpg" alt="Album 3" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=ALBUM+03';"><span class="tag-number">#03</span><div class="card-title-overlay">Acara Sekolah</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto4.jpg" alt="Album 4" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=ALBUM+04';"><span class="tag-number">#04</span><div class="card-title-overlay">Momen Spesial</div></div></div>
+                <div class="card"><div class="card-img-box"><img src="foto5.jpg" alt="Album 5" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/0f172a/ffffff?text=ALBUM+05';"><span class="tag-number">#05</span><div class="card-title-overlay">Dokumentasi Akhir Tahun</div></div></div>
+            </div>
+        </section>
+
+        <!-- STRUKTUR ORGANISASI KELAS -->
+        <section class="section-block" id="struktur">
+            <div class="header-section">
+                <span class="sub-tag">ORGANISASI</span>
+                <h1>Struktur Organisasi Kelas</h1>
+                <p>Tahun Ajaran 2026/2027 - X. Kartini 4</p>
+            </div>
+
+            <div class="diagram-wrapper">
+                <div class="tree-container">
+                    <div class="tree-level level-1">
+                        <div class="tree-node wali-node">
+                            <div class="node-badge">Wali Kelas</div>
+                            <h3>Pak Najib Ain.</h3>
+                        </div>
+                    </div>
+                    <div class="v-line"></div>
+                    <div class="tree-level level-2">
+                        <div class="tree-node">
+                            <div class="node-badge">Ketua Kelas</div>
+                            <h3>Kirana Haifa Saraswati</h3>
+                        </div>
+                        <div class="tree-node">
+                            <div class="node-badge">Wakil Ketua Kelas</div>
+                            <h3>Nevan Albryan Prasetyo</h3>
+                        </div>
+                    </div>
+                    <div class="v-line"></div>
+                    <div class="tree-level level-3">
+                        <div class="tree-node">
+                            <div class="node-badge">Sekretaris</div>
+                            <ul class="member-list">
+                                <li>1. Ahmad Cairo Putraryfa</li>
+                                <li>2. Uni Sa'adah</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node">
+                            <div class="node-badge">Bendahara</div>
+                            <ul class="member-list">
+                                <li>1. Queena Adzra Calya Aqilah</li>
+                                <li>2. Farhan Dito Arrohman</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="v-line"></div>
+                    <div class="tree-level level-4">
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Ketertiban & Upacara</div>
+                            <ul class="member-list">
+                                <li>• Adelia Sasikirana Abdullah</li>
+                                <li>• Marieta Arsha Sabriena</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Kebersihan</div>
+                            <ul class="member-list">
+                                <li>• M. Roshiful Azzam Ramadhan</li>
+                                <li>• M. Zaid An Nafi</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Design & Media</div>
+                            <ul class="member-list">
+                                <li>• Agrafa Iniezkanaya</li>
+                                <li>• Diva Yudiaryati</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Kekeluargaan</div>
+                            <ul class="member-list">
+                                <li>• Kemal Umar Assibli</li>
+                                <li>• Sultan Muhammad Al-Fatih</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="v-line"></div>
+                    <div class="tree-level level-5">
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Keagamaan</div>
+                            <ul class="member-list">
+                                <li>• Abid Arkan</li>
+                                <li>• Muhammad Rangga Addy Putra</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Perpustakaan</div>
+                            <ul class="member-list">
+                                <li>• Zahra Khairunnisa</li>
+                                <li>• Naufal Faris Adrianto</li>
+                            </ul>
+                        </div>
+                        <div class="tree-node div-node">
+                            <div class="node-badge">Kesehatan & Olahraga</div>
+                            <ul class="member-list">
+                                <li>• Muhammad Alfinno Dafa Pratama</li>
+                                <li>• Frananda Aditya Kurniawan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 X. Kartini 4 | SMA Negeri 1 Pekalongan</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

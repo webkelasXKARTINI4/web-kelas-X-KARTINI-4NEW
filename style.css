@@ -1,0 +1,504 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #030712;
+    color: #ffffff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* =========================================
+   EFEK LATAR BINTANG & LUAR ANGKASA (SPACE)
+   ========================================= */
+.stars-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #0B132B 0%, #030712 100%);
+    z-index: -1;
+    overflow: hidden;
+}
+
+/* Efek Cahaya Nebula Biru/Ungu */
+.nebula-glow {
+    position: absolute;
+    top: -20%;
+    left: 20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 70%);
+    filter: blur(80px);
+    border-radius: 50%;
+    animation: floatNebula 20s ease-in-out infinite alternate;
+}
+
+/* Bintang Kecil */
+.stars-small {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 
+        10vw 15vh #fff, 20vw 40vh rgba(255,255,255,0.7), 35vw 25vh #fff, 45vw 80vh rgba(255,255,255,0.5),
+        55vw 10vh #fff, 68vw 60vh rgba(255,255,255,0.8), 80vw 30vh #fff, 92vw 85vh rgba(255,255,255,0.6),
+        15vw 70vh #fff, 28vw 90vh rgba(255,255,255,0.4), 72vw 15vh #fff, 88vw 45vh rgba(255,255,255,0.9),
+        5vw 95vh #fff, 38vw 55vh rgba(255,255,255,0.6), 60vw 35vh #fff, 82vw 5vh rgba(255,255,255,0.7);
+    animation: twinkle 3s ease-in-out infinite alternate;
+}
+
+/* Bintang Sedang */
+.stars-medium {
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: 
+        12vw 25vh #38bdf8, 25vw 65vh #fff, 40vw 15vh #c084fc, 52vw 75vh #fff,
+        65vw 30vh #38bdf8, 78vw 90vh #fff, 85vw 20vh #fef08a, 95vw 50vh #fff,
+        8vw 85vh #c084fc, 30vw 35vh #fff, 60vw 80vh #38bdf8, 75vw 45vh #fff;
+    animation: twinkle 4s ease-in-out infinite alternate-reverse;
+}
+
+/* Bintang Besar Berkilau */
+.stars-large {
+    width: 4px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 
+        18vw 10vh 2px #fff, 32vw 80vh 3px #38bdf8, 58vw 20vh 2px #fff, 74vw 70vh 3px #c084fc,
+        90vw 15vh 2px #fff, 10vw 60vh 3px #fef08a, 48vw 45vh 2px #fff;
+    animation: twinkle 2.5s ease-in-out infinite alternate;
+}
+
+/* Animasi Kelap-Kelip Bintang */
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.4; transform: scale(0.9); }
+}
+
+/* Animasi Bergerak Nebula */
+@keyframes floatNebula {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(100px, 50px) scale(1.2); }
+}
+
+/* HERO LANDING PAGE */
+.hero-landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+}
+
+.orbit-center {
+    width: 220px;
+    height: 220px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    box-shadow: 0 0 50px rgba(56, 189, 248, 0.05);
+}
+
+.glow-dot {
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 8px rgba(56, 189, 248, 0.8);
+}
+
+.sub-motto {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: #38bdf8;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.hero-title {
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #38bdf8, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-quote {
+    max-width: 650px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #94a3b8;
+    margin-bottom: 35px;
+}
+
+.btn-enter {
+    display: inline-block;
+    background: linear-gradient(135deg, #38bdf8, #fef08a);
+    color: #0b0f19;
+    padding: 12px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.3);
+    transition: transform 0.3s;
+}
+
+.btn-enter:hover {
+    transform: translateY(-3px);
+}
+
+/* HEADER & TAMPILAN NAVIGASI VERTIKAL */
+.header-nav {
+    padding: 30px 20px 10px 20px;
+    width: 100%;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* LOGO KIRI */
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.circle-gradient {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+.logo-text h2 {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #ffffff;
+}
+
+/* NAVIGASI MENUMPUK DI TENGAH */
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    gap: 14px;
+}
+
+.nav-btn {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 6px 20px;
+    border-radius: 20px;
+}
+
+.nav-btn:hover {
+    color: #ffffff;
+}
+
+.nav-btn.active {
+    background: linear-gradient(135deg, #7dd3fc, #fef08a);
+    color: #0f172a !important;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(125, 211, 252, 0.3);
+}
+
+/* TOMBOL MUSIC KANAN */
+.music-toggle-btn {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #818cf8, #60a5fa);
+    border: none;
+    color: #0b0f19;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 25px rgba(129, 140, 248, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.08);
+}
+
+.play-icon {
+    margin-left: 2px;
+}
+
+/* MUSIC PLAYER POPUP MODAL */
+.music-modal {
+    display: none;
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    width: 280px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    z-index: 1001;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.music-modal.show {
+    display: block;
+}
+
+.music-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.music-disc {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38bdf8, #a855f7);
+}
+
+.music-info h4 { font-size: 14px; }
+.music-info p { font-size: 11px; color: #94a3b8; }
+
+.music-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 12px;
+}
+
+.music-controls button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.playlist-item.active { background-color: rgba(56, 189, 248, 0.15); }
+.song-num { color: #38bdf8; font-weight: bold; }
+.song-title { font-size: 12px; font-weight: 600; }
+.song-artist { font-size: 10px; color: #94a3b8; }
+
+/* KONTEN UTAMA WEBSITES */
+.main-container {
+    padding: 20px 5%;
+}
+
+.welcome-section {
+    padding: 30px 0 50px 0;
+}
+
+.welcome-title {
+    font-size: 28px;
+    line-height: 1.3;
+    margin: 12px 0 16px 0;
+    font-weight: 700;
+}
+
+.welcome-text {
+    color: #94a3b8;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 650px;
+    margin-bottom: 30px;
+}
+
+.about-card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 22px;
+    max-width: 650px;
+}
+
+.card-sub-tag {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #38bdf8;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.about-card p {
+    color: #cbd5e1;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* JADWAL PIKET KELAS */
+.section-block { margin-bottom: 60px; }
+.header-section { margin-bottom: 25px; }
+.sub-tag { color: #38bdf8; font-size: 11px; font-weight: 700; letter-spacing: 2px; }
+.header-section h1 { font-size: 26px; margin: 5px 0; }
+.header-section p { color: #94a3b8; font-size: 13px; }
+
+.piket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.piket-card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+}
+
+.piket-header {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+.piket-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.day-senin .piket-header { background: #15803d; }
+.day-selasa .piket-header { background: #0284c7; }
+.day-rabu .piket-header { background: #ea580c; }
+.day-kamis .piket-header { background: #eab308; }
+.day-jumat .piket-header { background: #dc2626; }
+
+.piket-list {
+    padding: 18px 20px 20px 35px;
+    list-style-type: decimal;
+}
+
+.piket-list li {
+    font-size: 14px;
+    color: #e2e8f0;
+    padding: 4px 0;
+    font-weight: 500;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+}
+
+.piket-list li:last-child { border-bottom: none; }
+
+/* CARDS GRID */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+}
+
+.card-img-box {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background: #0f172a;
+}
+
+.card-img-box img { width: 100%; height: 100%; object-fit: cover; }
+.video-box { display: flex; justify-content: center; align-items: center; }
+.video-placeholder span { background: rgba(0, 0, 0, 0.6); padding: 6px 14px; border-radius: 20px; font-size: 13px; }
+.tag-number { position: absolute; top: 10px; right: 10px; background: rgba(0, 0, 0, 0.5); padding: 2px 8px; border-radius: 6px; font-size: 11px; color: #94a3b8; }
+.card-title-overlay { position: absolute; bottom: 10px; left: 12px; font-size: 13px; font-weight: 600; }
+
+/* STRUKTUR ORGANISASI KELAS */
+.diagram-wrapper { width: 100%; overflow-x: auto; padding: 10px 0; }
+.tree-container { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 12px; min-width: 320px; }
+.tree-level { display: flex !important; flex-direction: row !important; justify-content: center !important; gap: 12px !important; width: 100%; flex-wrap: wrap; }
+.tree-node { background: rgba(15, 23, 42, 0.85) !important; backdrop-filter: blur(8px); border: 1.5px solid #d97706 !important; border-radius: 12px !important; padding: 12px 15px !important; min-width: 200px !important; max-width: 260px !important; text-align: center !important; box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important; margin: 4px 0; }
+.wali-node { border-color: #f59e0b !important; background: rgba(245, 158, 11, 0.15) !important; }
+.div-node { border-color: rgba(217, 119, 6, 0.5) !important; flex: 1 1 180px; }
+.node-badge { display: inline-block !important; background: #78350f !important; color: #fef08a !important; font-size: 11px !important; font-weight: 700 !important; padding: 4px 12px !important; border-radius: 8px !important; margin-bottom: 8px !important; text-transform: uppercase; letter-spacing: 0.5px; }
+.tree-node h3 { font-size: 13px !important; color: #ffffff !important; font-weight: 600; }
+.member-list { list-style: none !important; text-align: left !important; padding-left: 0 !important; margin-top: 6px !important; }
+.member-list li { font-size: 11px !important; color: #cbd5e1 !important; margin-top: 3px !important; line-height: 1.4; }
+.v-line { width: 2px !important; height: 16px !important; background-color: #f59e0b !important; }
+
+/* FOOTER */
+footer { text-align: center; padding: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); color: #64748b; font-size: 12px; }
+
+/* RESPONSIVE LAYOUT UNTUK LAYAR HP KECIL */
+@media (max-width: 480px) {
+    .header-container {
+        padding: 0 5px;
+    }
+    .logo-text h2 {
+        font-size: 13px;
+    }
+    .circle-gradient {
+        width: 36px;
+        height: 36px;
+    }
+    .music-toggle-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 16px;
+    }
+    .nav-btn {
+        font-size: 13px;
+        padding: 5px 16px;
+    }
+    .welcome-title {
+        font-size: 22px;
+    }
+}
