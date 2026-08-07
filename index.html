@@ -3,9 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>X. KARTINI 4 - SMA Negeri 1 Pekalongan</title>
+
+<!-- ================= SEO META TAGS ================= -->
+<title>X. KARTINI 4 - SMA Negeri 1 Pekalongan | Website Resmi Kelas</title>
+<meta name="description" content="Website resmi kelas X. Kartini 4 SMA Negeri 1 Pekalongan. Informasi struktur organisasi, jadwal piket, daftar anggota kelas, galeri foto, video kenangan, dan chat realtime.">
+<meta name="keywords" content="X Kartini 4, Kartini 4, SMA Negeri 1 Pekalongan, SMAN 1 Pekalongan, Kelas X Kartini 4, Eufouria, Smansa Pekalongan">
+<meta name="author" content="Kelas X. Kartini 4 SMA Negeri 1 Pekalongan">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph / Facebook / WhatsApp Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="X. KARTINI 4 - SMA Negeri 1 Pekalongan">
+<meta property="og:description" content="Ruang digital resmi kelas X. Kartini 4 SMAN 1 Pekalongan. Temukan jadwal piket, anggota kelas, foto & video kenangan di sini.">
+<meta property="og:image" content="logo1.png">
+<meta property="og:locale" content="id_ID">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="X. KARTINI 4 - SMA Negeri 1 Pekalongan">
+<meta name="twitter:description" content="Ruang digital resmi kelas X. Kartini 4 SMAN 1 Pekalongan.">
+<meta name="twitter:image" content="logo1.png">
+
+<!-- Structured Data / Schema.org JSON-LD untuk Google Indexing -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "EducationalOrganization",
+  "name": "X. Kartini 4 - SMA Negeri 1 Pekalongan",
+  "alternateName": ["Eufouria Kartini 4", "X Kartini 4 Smansa Pekalongan"],
+  "description": "Website resmi kelas X. Kartini 4 SMA Negeri 1 Pekalongan",
+  "url": "https://journeyofkartini4.github.io/",
+  "logo": "logo1.png",
+  "parentOrganization": {
+    "@type": "School",
+    "name": "SMA Negeri 1 Pekalongan",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Jl. R.A. Kartini No.39, Keputran",
+      "addressLocality": "Pekalongan Tim.",
+      "addressRegion": "Kota Pekalongan",
+      "postalCode": "51128",
+      "addressCountry": "ID"
+    }
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- SDK Firebase v8 & PeerJS untuk Chat Realtime & Telepon Grup -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+
 <style>
 :root{
   --bg-main: #E0F2FE;
@@ -100,7 +152,6 @@ body{
   font-family: var(--font-body);font-size: 11px;font-weight: 600;padding: 5px 10px;border-radius: 999px;white-space: nowrap;
 }
 
-/* Tombol IG Kelas diperbesar secara khusus */
 .ext-btn.ig-main {
   font-size: 16px !important;
   font-weight: 800 !important;
@@ -223,254 +274,66 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .porthole .cap{position:absolute;left:12px;right:12px;bottom:10px;z-index:2;font-size:12.5px;font-family:var(--font-mono);color:#ffffff;}
 .porthole .num{position:absolute;top:10px;right:12px;z-index:2;font-family:var(--font-mono);font-size:11px;color:#ffffff;background:rgba(0,0,0,0.3);padding:2px 8px;border-radius:8px;}
 
-/* ================= DESAIN DIAGRAM STRUKTUR ORGANISASI ================= */
-.org-chart-wrapper {
-  overflow-x: auto;
-  padding: 20px 10px;
-}
-.org-tree {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-width: 850px;
-}
+/* Diagram Struktur Organisasi */
+.org-chart-wrapper { overflow-x: auto; padding: 20px 10px; }
+.org-tree { display: flex; flex-direction: column; align-items: center; min-width: 850px; }
 .org-node {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid var(--navy-dark);
-  border-radius: 14px;
-  padding: 12px 20px;
-  text-align: center;
-  box-shadow: 0 6px 15px rgba(2, 132, 199, 0.1);
-  position: relative;
-  min-width: 180px;
+  background: rgba(255, 255, 255, 0.9); border: 2px solid var(--navy-dark); border-radius: 14px;
+  padding: 12px 20px; text-align: center; box-shadow: 0 6px 15px rgba(2, 132, 199, 0.1);
+  position: relative; min-width: 180px;
 }
-.org-node.top-leader {
-  background: #FEF3C7;
-  border-color: #D97706;
-}
+.org-node.top-leader { background: #FEF3C7; border-color: #D97706; }
 .org-node.top-leader .org-role { color: #B45309; }
 .org-node .org-role {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--accent-blue);
-  letter-spacing: 0.05em;
-  margin-bottom: 4px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700; text-transform: uppercase;
+  color: var(--accent-blue); letter-spacing: 0.05em; margin-bottom: 4px;
 }
-.org-node .org-name {
-  font-family: var(--font-display);
-  font-size: 14.5px;
-  font-weight: 700;
-  color: var(--navy-deep);
-}
+.org-node .org-name { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; color: var(--navy-deep); }
+.line-v { width: 2px; height: 24px; background-color: var(--navy-dark); }
+.org-row { display: flex; justify-content: center; gap: 20px; position: relative; width: 100%; }
+.branch-container { display: flex; flex-direction: column; align-items: center; flex: 1; position: relative; }
+.line-h-bar { position: relative; width: 80%; height: 2px; background-color: var(--navy-dark); }
 
-/* Connectors */
-.line-v {
-  width: 2px;
-  height: 24px;
-  background-color: var(--navy-dark);
-}
-.org-row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  position: relative;
-  width: 100%;
-}
-.branch-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  position: relative;
-}
-.line-h-bar {
-  position: relative;
-  width: 80%;
-  height: 2px;
-  background-color: var(--navy-dark);
-}
-
-/* ================= DESAIN TAB GAMBAR ORGANISASI ================= */
-.orga-photo-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
-  margin-top: 20px;
-}
-
+/* Tab Gambar Organisasi */
+.orga-photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; margin-top: 20px; }
 .orga-card {
-  position: relative;
-  border-radius: 18px;
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  background: #1e293b;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.8);
+  position: relative; border-radius: 18px; overflow: hidden; aspect-ratio: 3 / 4;
+  background: #1e293b; box-shadow: 0 10px 25px rgba(0,0,0,0.15); cursor: pointer; border: 2px solid rgba(255, 255, 255, 0.8);
 }
-
-.orga-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.5s ease, filter 0.5s ease;
-}
-
-.orga-card:hover img,
-.orga-card.active img {
-  transform: scale(1.08);
-  filter: brightness(0.6);
-}
-
+.orga-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease, filter 0.5s ease; }
+.orga-card:hover img, .orga-card.active img { transform: scale(1.08); filter: brightness(0.6); }
 .orga-card .orga-card-label {
-  position: absolute;
-  bottom: 0;
-  inset-x: 0;
-  padding: 16px 14px;
+  position: absolute; bottom: 0; inset-x: 0; padding: 16px 14px;
   background: linear-gradient(0deg, rgba(12,74,110,0.95) 0%, rgba(12,74,110,0.6) 70%, transparent 100%);
-  color: #ffffff;
-  z-index: 2;
-  transition: opacity 0.3s ease;
+  color: #ffffff; z-index: 2; transition: opacity 0.3s ease;
 }
-
-.orga-card .orga-card-label .role {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #7DD3FC;
-  font-weight: 700;
-}
-
-.orga-card .orga-card-label .name {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 4px;
-}
-
+.orga-card .orga-card-label .role { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #7DD3FC; font-weight: 700; }
+.orga-card .orga-card-label .name { font-family: var(--font-display); font-size: 16px; font-weight: 700; margin-top: 4px; }
 .orga-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(3, 105, 161, 0.85) 0%, rgba(12, 74, 110, 0.95) 100%);
-  backdrop-filter: blur(4px);
-  color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 24px;
-  z-index: 3;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  position: absolute; inset: 0; background: linear-gradient(180deg, rgba(3, 105, 161, 0.85) 0%, rgba(12, 74, 110, 0.95) 100%);
+  backdrop-filter: blur(4px); color: #ffffff; display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 24px; z-index: 3; opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-
-.orga-card:hover .orga-overlay,
-.orga-card.active .orga-overlay {
-  opacity: 1;
-  visibility: visible;
-}
-
-.orga-overlay .overlay-role {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #FCD34D;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.orga-overlay .overlay-name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 12px;
-  line-height: 1.25;
-}
-
-.orga-overlay .overlay-desc {
-  font-family: var(--font-body);
-  font-size: 13.5px;
-  color: #E0F2FE;
-  line-height: 1.5;
-}
-
-.orga-overlay .overlay-list {
-  list-style: none;
-  padding: 0;
-  margin: 8px 0 0;
-  text-align: center;
-  font-size: 13.5px;
-  color: #E0F2FE;
-}
-
-.tap-hint {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--navy-dark);
-  text-align: center;
-  margin-bottom: 16px;
-  background: rgba(255, 255, 255, 0.6);
-  padding: 8px 14px;
-  border-radius: 999px;
-  display: inline-block;
-}
+.orga-card:hover .orga-overlay, .orga-card.active .orga-overlay { opacity: 1; visibility: visible; }
+.orga-overlay .overlay-role { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #FCD34D; font-weight: 700; margin-bottom: 8px; }
+.orga-overlay .overlay-name { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.25; }
+.orga-overlay .overlay-desc { font-family: var(--font-body); font-size: 13.5px; color: #E0F2FE; line-height: 1.5; }
+.orga-overlay .overlay-list { list-style: none; padding: 0; margin: 8px 0 0; text-align: center; font-size: 13.5px; color: #E0F2FE; }
+.tap-hint { font-family: var(--font-mono); font-size: 12px; color: var(--navy-dark); text-align: center; margin-bottom: 16px; background: rgba(255, 255, 255, 0.6); padding: 8px 14px; border-radius: 999px; display: inline-block; }
 
 /* Jargon Section Style */
-.jargon-card {
-  text-align: center;
-  padding: 36px 20px;
-  background: rgba(255, 255, 255, 0.85);
-  border: 2px dashed var(--accent-blue);
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-}
-
-.coming-soon-badge {
-  display: inline-block;
-  background: #D97706;
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 700;
-  padding: 6px 16px;
-  border-radius: 999px;
-  margin-bottom: 16px;
-  box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
-}
-
-.jargon-video-container {
-  max-width: 800px;
-  margin: 24px auto 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-  background: #000;
-  border: 1px solid var(--card-border);
-}
-
-.jargon-video-container video {
-  width: 100%;
-  display: block;
-}
+.jargon-card { text-align: center; padding: 36px 20px; background: rgba(255, 255, 255, 0.85); border: 2px dashed var(--accent-blue); border-radius: var(--radius); margin-bottom: 24px; }
+.coming-soon-badge { display: inline-block; background: #D97706; color: #ffffff; font-family: var(--font-mono); font-size: 12px; font-weight: 700; padding: 6px 16px; border-radius: 999px; margin-bottom: 16px; box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3); }
+.jargon-video-container { max-width: 800px; margin: 24px auto 0; border-radius: var(--radius); overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.15); background: #000; border: 1px solid var(--card-border); }
+.jargon-video-container video { width: 100%; display: block; }
 
 /* Music Player Style */
 #music-fab{
   position:fixed;bottom:28px;right:28px;z-index:40;width:58px;height:58px;border-radius:50%;
-  border:2px solid #ffffff;cursor:pointer;
-  background:linear-gradient(135deg, var(--accent-blue), var(--navy-dark));
-  box-shadow:0 10px 25px rgba(2,132,199,0.4);
-  display:flex;align-items:center;justify-content:center;color:#ffffff;
+  border:2px solid #ffffff;cursor:pointer; background:linear-gradient(135deg, var(--accent-blue), var(--navy-dark));
+  box-shadow:0 10px 25px rgba(2,132,199,0.4); display:flex;align-items:center;justify-content:center;color:#ffffff;
 }
 #music-fab svg{width:22px;height:22px;}
-
 #music-panel{
   position:fixed;bottom:96px;right:28px;z-index:39;width:320px;
   background:rgba(255, 255, 255, 0.95);backdrop-filter:blur(18px);border:1px solid var(--card-border);
@@ -536,7 +399,6 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       </div>
 
       <div class="topbar-actions">
-        <!-- Teks tombol diubah & dibuat paling menonjol -->
         <a href="https://www.instagram.com/journey.of_kartini4?igsh=MW9wd2QwdW9lMTZkcA==" target="_blank" class="ext-btn ig-main">
           <span>journey.of_kartini4</span>
         </a>
@@ -1039,169 +901,226 @@ if (mejaGrid) {
   mejaGrid.innerHTML = mejaItemsHTML;
 }
 
-/* Video Grid */
+/* Video, Photo & Album Grid */
 const videoGrid = document.getElementById('video-grid');
 if (videoGrid) {
-  let videoHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    videoHTML += `
-      <div class="porthole">
-        <video src="video${i}.mp4" controls preload="metadata"></video>
-        <div class="play-badge">▶ Video</div>
-        <div class="num">#${String(i).padStart(2,'0')}</div>
-        <div class="cap">Momen Kelas #${i}</div>
-      </div>
-    `;
-  }
-  videoGrid.innerHTML = videoHTML;
-}
-
-/* Foto Grid */
-const photoGrid = document.getElementById('photo-grid');
-if (photoGrid) {
-  let photoHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    photoHTML += `
-      <div class="porthole">
-        <img src="foto${i}.jpg" alt="Foto Kenangan #${i}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=FOTO+${i}';" loading="lazy">
-        <div class="num">#${String(i).padStart(2,'0')}</div>
-        <div class="cap">Foto Kenangan #${i}</div>
-      </div>
-    `;
-  }
-  photoGrid.innerHTML = photoHTML;
-}
-
-/* Album Grid */
-const albumGrid = document.getElementById('album-grid');
-if (albumGrid) {
-  let albumHTML = '';
-  for (let i = 1; i <= 10; i++) {
-    albumHTML += `
-      <div class="porthole">
-        <img src="foto${i}.jpg" alt="Album #${i}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=ALBUM+${i}';" loading="lazy">
-        <div class="num">#${String(i).padStart(2,'0')}</div>
-        <div class="cap">Album Kenangan #${i}</div>
-      </div>
-    `;
-  }
-  albumGrid.innerHTML = albumHTML;
-}
-
-/* ================= CHAT GLOBAL REALTIME LOGIC ================= */
-const chatMessagesEl = document.getElementById('chat-messages');
-const chatSenderInput = document.getElementById('chat-sender');
-const chatMsgInput = document.getElementById('chat-msg-text');
-const chatSendBtn = document.getElementById('chat-send-btn');
-
-function renderMessages() {
-  const msgs = JSON.parse(localStorage.getItem('kartini4_chats') || '[]');
-  chatMessagesEl.innerHTML = msgs.map(m => `
-    <div class="chat-bubble">
-      <div class="sender-name">${escapeHtml(m.sender)}</div>
-      <div class="msg-text">${escapeHtml(m.text)}</div>
-      <div class="msg-time">${m.time}</div>
+  videoGrid.innerHTML = Array.from({length: 10}, (_, i) => `
+    <div class="porthole">
+      <video src="video${i+1}.mp4" controls preload="metadata"></video>
+      <div class="play-badge">▶ Video</div>
+      <div class="num">#${String(i+1).padStart(2,'0')}</div>
+      <div class="cap">Momen Kelas #${i+1}</div>
     </div>
   `).join('');
-  chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
 }
 
-function sendChatMessage() {
-  const sender = chatSenderInput.value.trim() || 'Siswa Kartini 4';
-  const text = chatMsgInput.value.trim();
-  if(!text) return;
-
-  const msgs = JSON.parse(localStorage.getItem('kartini4_chats') || '[]');
-  const now = new Date();
-  const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-
-  msgs.push({ sender, text, time: timeStr });
-  localStorage.setItem('kartini4_chats', JSON.stringify(msgs));
-  chatMsgInput.value = '';
-  renderMessages();
+const photoGrid = document.getElementById('photo-grid');
+if (photoGrid) {
+  photoGrid.innerHTML = Array.from({length: 10}, (_, i) => `
+    <div class="porthole">
+      <img src="foto${i+1}.jpg" alt="Foto #${i+1}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=FOTO+${i+1}';" loading="lazy">
+      <div class="num">#${String(i+1).padStart(2,'0')}</div>
+      <div class="cap">Foto Kenangan #${i+1}</div>
+    </div>
+  `).join('');
 }
 
-if(chatSendBtn){
-  chatSendBtn.addEventListener('click', sendChatMessage);
-  chatMsgInput.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') sendChatMessage(); });
-  window.addEventListener('storage', renderMessages);
-  renderMessages();
+const albumGrid = document.getElementById('album-grid');
+if (albumGrid) {
+  albumGrid.innerHTML = Array.from({length: 10}, (_, i) => `
+    <div class="porthole">
+      <img src="foto${i+1}.jpg" alt="Album #${i+1}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=ALBUM+${i+1}';" loading="lazy">
+      <div class="num">#${String(i+1).padStart(2,'0')}</div>
+      <div class="cap">Album Kenangan #${i+1}</div>
+    </div>
+  `).join('');
 }
 
-/* ================= TELEPON GRUP LOGIC ================= */
+/* ================= FIREBASE REALTIME CHAT GLOBAL ================= */
+// Konfigurasi Project Firebase Asli
+const firebaseConfig = {
+  apiKey: "AIzaSyAeDwysoOyhq_XhHAVNLoWCS0kQfFPAEbc",
+  authDomain: "kartini4-app.firebaseapp.com",
+  databaseURL: "https://kartini4-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "kartini4-app",
+  storageBucket: "kartini4-app.firebasestorage.app",
+  messagingSenderId: "125609530806",
+  appId: "1:125609530806:web:8269966d3be92beb111d17",
+  measurementId: "G-QN6Z633DJZ"
+};
+
+// Inisialisasi Firebase
+if (typeof firebase !== 'undefined') {
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+    if (typeof firebase.analytics === 'function') {
+      firebase.analytics();
+    }
+  }
+  const db = firebase.database();
+  const chatRef = db.ref('global_chats');
+
+  const chatMessagesEl = document.getElementById('chat-messages');
+  const chatSenderInput = document.getElementById('chat-sender');
+  const chatMsgInput = document.getElementById('chat-msg-text');
+  const chatSendBtn = document.getElementById('chat-send-btn');
+
+  // Terima pesan secara realtime dari server Firebase
+  chatRef.limitToLast(100).on('value', (snapshot) => {
+    chatMessagesEl.innerHTML = '';
+    const data = snapshot.val();
+    if (data) {
+      Object.keys(data).forEach(key => {
+        const m = data[key];
+        chatMessagesEl.innerHTML += `
+          <div class="chat-bubble">
+            <div class="sender-name">${escapeHtml(m.sender)}</div>
+            <div class="msg-text">${escapeHtml(m.text)}</div>
+            <div class="msg-time">${m.time}</div>
+          </div>
+        `;
+      });
+      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+    }
+  });
+
+  function sendChatMessage() {
+    const sender = chatSenderInput.value.trim() || 'Siswa Kartini 4';
+    const text = chatMsgInput.value.trim();
+    if (!text) return;
+
+    const now = new Date();
+    const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+
+    chatRef.push({
+      sender: sender,
+      text: text,
+      time: timeStr,
+      timestamp: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    chatMsgInput.value = '';
+  }
+
+  if (chatSendBtn) {
+    chatSendBtn.addEventListener('click', sendChatMessage);
+    chatMsgInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
+  }
+}
+
+/* ================= PEERJS REALTIME TELEPON GRUP ================= */
 const callGate = document.getElementById('call-gate');
 const callPassInput = document.getElementById('call-pass-input');
 const callLoginBtn = document.getElementById('call-login-btn');
 const callGateError = document.getElementById('call-gate-error');
 const callRoomActive = document.getElementById('call-room-active');
+const callGrid = document.getElementById('call-grid');
 
-if(callLoginBtn){
-  callLoginBtn.addEventListener('click', ()=>{
-    if(callPassInput.value.trim() === 'Xkartini4') {
+let localStream = null;
+let peer = null;
+
+if (callLoginBtn) {
+  callLoginBtn.addEventListener('click', async () => {
+    if (callPassInput.value.trim() === 'Xkartini4') {
       callGate.style.display = 'none';
       callRoomActive.style.display = 'flex';
       callGateError.style.display = 'none';
+
+      try {
+        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        const localVideo = document.getElementById('local-video');
+        if (localVideo) {
+          localVideo.srcObject = localStream;
+          localVideo.style.display = 'block';
+          document.getElementById('user-avatar').style.display = 'none';
+        }
+      } catch(err) {
+        alert("Akses kamera/mikrofon ditolak atau tidak tersedia.");
+      }
+
+      peer = new Peer();
+
+      peer.on('open', (id) => {
+        console.log('Peer ID Kamu:', id);
+      });
+
+      peer.on('call', (call) => {
+        call.answer(localStream);
+        call.on('stream', (remoteStream) => {
+          addRemoteStream(call.peer, remoteStream);
+        });
+      });
+
     } else {
       callGateError.style.display = 'block';
     }
   });
 }
 
-let isMicOn = true;
-let isCamOn = false;
-let localStream = null;
+function addRemoteStream(peerId, stream) {
+  if (document.getElementById(`card-${peerId}`)) return;
 
+  const card = document.createElement('div');
+  card.className = 'call-avatar-card';
+  card.id = `card-${peerId}`;
+
+  const video = document.createElement('video');
+  video.className = 'video-preview';
+  video.srcObject = stream;
+  video.autoplay = true;
+  video.playsInline = true;
+  video.style.display = 'block';
+
+  const label = document.createElement('div');
+  label.style.cssText = 'font-size:13px; font-weight:600; margin-top:6px;';
+  label.textContent = 'Teman Kelas (Aktif)';
+
+  card.appendChild(video);
+  card.appendChild(label);
+  callGrid.appendChild(card);
+}
+
+// Control Buttons
 const toggleMicBtn = document.getElementById('toggle-mic');
 const toggleCamBtn = document.getElementById('toggle-cam');
 const endCallBtn = document.getElementById('end-call');
-const localVideo = document.getElementById('local-video');
-const userAvatar = document.getElementById('user-avatar');
 
-if(toggleMicBtn){
-  toggleMicBtn.addEventListener('click', ()=>{
-    isMicOn = !isMicOn;
-    toggleMicBtn.style.background = isMicOn ? 'var(--navy-dark)' : 'var(--accent-red)';
-  });
-}
+let isMicOn = true;
+let isCamOn = true;
 
-if(toggleCamBtn){
-  toggleCamBtn.addEventListener('click', async ()=>{
-    isCamOn = !isCamOn;
-    toggleCamBtn.style.background = isCamOn ? 'var(--navy-dark)' : 'var(--accent-red)';
-    
-    if(isCamOn) {
-      try {
-        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: isMicOn });
-        localVideo.srcObject = localStream;
-        localVideo.style.display = 'block';
-        userAvatar.style.display = 'none';
-      } catch(e) {
-        alert('Kamera tidak dapat diakses.');
-        isCamOn = false;
-        toggleCamBtn.style.background = 'var(--accent-red)';
-      }
-    } else {
-      if(localStream) {
-        localStream.getTracks().forEach(track => track.stop());
-      }
-      localVideo.style.display = 'none';
-      userAvatar.style.display = 'flex';
+if (toggleMicBtn) {
+  toggleMicBtn.addEventListener('click', () => {
+    if (localStream) {
+      isMicOn = !isMicOn;
+      localStream.getAudioTracks()[0].enabled = isMicOn;
+      toggleMicBtn.style.background = isMicOn ? 'var(--navy-dark)' : 'var(--accent-red)';
     }
   });
 }
 
-if(endCallBtn){
-  endCallBtn.addEventListener('click', ()=>{
-    if(localStream) {
+if (toggleCamBtn) {
+  toggleCamBtn.addEventListener('click', () => {
+    if (localStream) {
+      isCamOn = !isCamOn;
+      localStream.getVideoTracks()[0].enabled = isCamOn;
+      toggleCamBtn.style.background = isCamOn ? 'var(--navy-dark)' : 'var(--accent-red)';
+    }
+  });
+}
+
+if (endCallBtn) {
+  endCallBtn.addEventListener('click', () => {
+    if (localStream) {
       localStream.getTracks().forEach(track => track.stop());
     }
+    if (peer) peer.destroy();
     callRoomActive.style.display = 'none';
     callGate.style.display = 'block';
     callPassInput.value = '';
   });
 }
 
-/* ================= MUSIC PLAYER LOGIC (MULTI-SONG PLAYLIST) ================= */
+/* ================= MUSIC PLAYER LOGIC ================= */
 const songs = [
   { title: "Kisah Klasik", artist: "Sheila On 7", src: "lagu1.mp3" },
   { title: "Masa SMA", artist: "Kenangan Sekolah", src: "lagu2.mp3" },
@@ -1247,40 +1166,33 @@ function pauseSong() {
   npDisc.style.animationPlayState = 'paused';
 }
 
-playBtn.addEventListener('click', ()=>{
-  if(audio.paused){
-    playSong();
-  } else {
-    pauseSong();
-  }
+playBtn.addEventListener('click', () => {
+  if(audio.paused){ playSong(); } else { pauseSong(); }
 });
 
-prevBtn.addEventListener('click', ()=>{
+prevBtn.addEventListener('click', () => {
   currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-  loadSong(currentSongIndex);
-  playSong();
+  loadSong(currentSongIndex); playSong();
 });
 
-nextBtn.addEventListener('click', ()=>{
+nextBtn.addEventListener('click', () => {
   currentSongIndex = (currentSongIndex + 1) % songs.length;
-  loadSong(currentSongIndex);
-  playSong();
+  loadSong(currentSongIndex); playSong();
 });
 
-audio.addEventListener('timeupdate', ()=>{
+audio.addEventListener('timeupdate', () => {
   if(audio.duration){
     const percent = (audio.currentTime / audio.duration) * 100;
     progressFill.style.width = percent + '%';
   }
 });
 
-audio.addEventListener('ended', ()=>{
+audio.addEventListener('ended', () => {
   currentSongIndex = (currentSongIndex + 1) % songs.length;
-  loadSong(currentSongIndex);
-  playSong();
+  loadSong(currentSongIndex); playSong();
 });
 
-progressBar.addEventListener('click', (e)=>{
+progressBar.addEventListener('click', (e) => {
   const width = progressBar.clientWidth;
   const clickX = e.offsetX;
   if(audio.duration){
@@ -1300,27 +1212,19 @@ function renderPlaylist() {
 function updatePlaylistUI() {
   const items = playlistList.querySelectorAll('.playlist-item');
   items.forEach((item, idx) => {
-    if(idx === currentSongIndex){
-      item.classList.add('active');
-    } else {
-      item.classList.remove('active');
-    }
+    if(idx === currentSongIndex){ item.classList.add('active'); }
+    else { item.classList.remove('active'); }
   });
 }
 
 window.playPlaylistItem = function(idx) {
-  loadSong(idx);
-  playSong();
+  loadSong(idx); playSong();
 };
 
-/* Floating Music FAB Control */
 const musicFab = document.getElementById('music-fab');
 const musicPanel = document.getElementById('music-panel');
-musicFab.addEventListener('click', ()=>{ 
-  musicPanel.classList.toggle('open'); 
-});
+musicFab.addEventListener('click', () => { musicPanel.classList.toggle('open'); });
 
-/* Init Song & Playlist */
 loadSong(0);
 renderPlaylist();
 
