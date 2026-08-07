@@ -6,7 +6,7 @@
 
 <!-- ================= SEO META TAGS ================= -->
 <title>X. KARTINI 4 - SMA Negeri 1 Pekalongan | Website Resmi Kelas</title>
-<meta name="description" content="Website resmi kelas X. Kartini 4 SMA Negeri 1 Pekalongan. Informasi struktur organisasi, jadwal piket, daftar anggota kelas, galeri foto, video kenangan, dan chat realtime.">
+<meta name="description" content="Website resmi kelas X. Kartini 4 SMA Negeri 1 Pekalongan. Informasi struktur organisasi, jadwal piket, daftar anggota kelas, tanggal lahir, galeri foto, video kenangan, dan chat realtime.">
 <meta name="keywords" content="X Kartini 4, Kartini 4, SMA Negeri 1 Pekalongan, SMAN 1 Pekalongan, Kelas X Kartini 4, Eufouria, Smansa Pekalongan">
 <meta name="author" content="Kelas X. Kartini 4 SMA Negeri 1 Pekalongan">
 <meta name="robots" content="index, follow">
@@ -14,7 +14,7 @@
 <!-- Open Graph / Facebook / WhatsApp Meta Tags -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="X. KARTINI 4 - SMA Negeri 1 Pekalongan">
-<meta property="og:description" content="Ruang digital resmi kelas X. Kartini 4 SMAN 1 Pekalongan. Temukan jadwal piket, anggota kelas, foto & video kenangan di sini.">
+<meta property="og:description" content="Ruang digital resmi kelas X. Kartini 4 SMAN 1 Pekalongan. Temukan jadwal piket, anggota kelas, tanggal lahir, foto & video kenangan di sini.">
 <meta property="og:image" content="logo1.png">
 <meta property="og:locale" content="id_ID">
 
@@ -215,6 +215,14 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .badge-gender { display: inline-block; padding: 2px 8px; border-radius: 6px; font-family: var(--font-mono); font-size: 11px; font-weight: bold; }
 .badge-gender.L { background: #DBEAFE; color: #1E40AF; }
 .badge-gender.P { background: #FCE7F3; color: #9D174D; }
+
+/* Tanggal Lahir Grid */
+.ultah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+.ultah-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 18px; backdrop-filter: blur(8px); }
+.ultah-card h3 { font-family: var(--font-display); font-size: 18px; color: var(--accent-blue); margin: 0 0 10px 0; border-bottom: 2px solid rgba(2,132,199,0.15); padding-bottom: 6px; display: flex; align-items: center; justify-content: space-between; }
+.ultah-card ul { margin: 0; padding-left: 18px; color: var(--text-muted); font-size: 14px; line-height: 1.8; }
+.ultah-card ul li { margin-bottom: 4px; }
+.ultah-card ul li.empty { list-style: none; margin-left: -18px; color: #94a3b8; font-style: italic; font-size: 13px; }
 
 /* Telepon & Chat */
 .chat-gate-card, .call-gate-card { max-width: 480px; margin: 0 auto; text-align: center; padding: 32px 24px; }
@@ -420,6 +428,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       <button data-tab="beranda" class="active">Beranda</button>
       <button data-tab="piket">Jadwal Piket</button>
       <button data-tab="anggota">Anggota Kelas</button>
+      <button data-tab="ultah">Tanggal Lahir</button>
       <button data-tab="meja">Foto Sebangku</button>
       <button data-tab="chat">Chat Global</button>
       <button data-tab="telepon">Telepon Grup</button>
@@ -508,6 +517,102 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
           </thead>
           <tbody id="members-table-body"></tbody>
         </table>
+      </div>
+    </section>
+
+    <!-- TANGGAL LAHIR ANGGOTA -->
+    <section class="tab" id="tab-ultah">
+      <div class="eyebrow">Hari Spesial</div>
+      <h1 class="page-title">Tanggal Lahir Anggota</h1>
+      <p class="page-desc">Daftar hari ulang tahun seluruh anggota kelas X. Kartini 4 berdasarkan bulan.</p>
+      <div class="ultah-grid">
+        <div class="ultah-card">
+          <h3>Januari 🎂</h3>
+          <ul>
+            <li><b>30 Jan:</b> Zaskia</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Februari 🎂</h3>
+          <ul>
+            <li><b>4 Feb:</b> Khansa</li>
+            <li><b>7 Feb:</b> Frananda</li>
+            <li><b>18 Feb:</b> Kirana</li>
+            <li><b>27 Feb:</b> Rangga</li>
+            <li><b>28 Feb:</b> A'an</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Maret 🎂</h3>
+          <ul>
+            <li><b>19 Mar:</b> Hylmi</li>
+            <li><b>31 Mar:</b> Arsha</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>April 🎂</h3>
+          <ul>
+            <li><b>13 Apr:</b> Bilqist</li>
+            <li><b>22 Apr:</b> Diva</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Mei 🎂</h3>
+          <ul>
+            <li class="empty">Tidak ada ulang tahun di bulan ini</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Juni 🎂</h3>
+          <ul>
+            <li><b>7 Jun:</b> Cairo</li>
+            <li><b>17 Jun:</b> Aisyah</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Juli 🎂</h3>
+          <ul>
+            <li><b>5 Jul:</b> Abid</li>
+            <li><b>7 Jul:</b> Nita</li>
+            <li><b>26 Jul:</b> Farhan</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Agustus 🎂</h3>
+          <ul>
+            <li><b>7 Tgt:</b> Nauval</li>
+            <li><b>25 Tgt:</b> Putri</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>September 🎂</h3>
+          <ul>
+            <li><b>3 Sep:</b> Uni</li>
+            <li><b>18 Sep:</b> Naura</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Oktober 🎂</h3>
+          <ul>
+            <li class="empty">Tidak ada ulang tahun di bulan ini</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>November 🎂</h3>
+          <ul>
+            <li><b>3 Nov:</b> Queena</li>
+            <li><b>17 Nov:</b> Dhifa</li>
+            <li><b>18 Nov:</b> Adel</li>
+            <li><b>18 Nov:</b> Princess Nisa</li>
+            <li><b>26 Nov:</b> Sultan</li>
+          </ul>
+        </div>
+        <div class="ultah-card">
+          <h3>Desember 🎂</h3>
+          <ul>
+            <li class="empty">Tidak ada ulang tahun di bulan ini</li>
+          </ul>
+        </div>
       </div>
     </section>
 
