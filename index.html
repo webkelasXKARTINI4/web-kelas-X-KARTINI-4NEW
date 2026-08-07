@@ -24,7 +24,7 @@
 <meta name="twitter:description" content="Ruang digital resmi kelas X. Kartini 4 SMAN 1 Pekalongan.">
 <meta name="twitter:image" content="logo1.png">
 
-<!-- Structured Data / Schema.org JSON-LD untuk Google Indexing -->
+<!-- Structured Data / Schema.org JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -52,7 +52,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- SDK Firebase v8 & PeerJS untuk Chat Realtime & Telepon Grup -->
+<!-- SDK Firebase v8 & PeerJS -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
@@ -243,13 +243,15 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 /* Panggilan */
 .call-container { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; }
 .call-status-bar { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 14px; color: var(--navy-deep); }
-.call-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent-green); }
-.call-grid { display: flex; justify-content: center; align-items: center; gap: 16px; width: 100%; padding: 20px; background: rgba(15, 23, 42, 0.05); border-radius: 16px; }
-.call-avatar-card { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 20px; background: rgba(255, 255, 255, 0.85); border-radius: 14px; min-width: 200px; }
-.video-preview { width: 100%; height: 160px; border-radius: 10px; object-fit: cover; background: #000; display: none; }
+.call-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent-green); animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+.call-grid { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px; width: 100%; padding: 20px; background: rgba(15, 23, 42, 0.05); border-radius: 16px; }
+.call-avatar-card { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px; background: rgba(255, 255, 255, 0.85); border-radius: 14px; min-width: 180px; max-width: 240px; }
+.video-preview { width: 100%; height: 160px; border-radius: 10px; object-fit: cover; background: #000; }
 .avatar-circle { width: 70px; height: 70px; border-radius: 50%; background: var(--navy-dark); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 18px; }
 .call-controls-row { display: flex; gap: 16px; margin-top: 10px; }
-.call-btn { width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; }
+.call-btn { width: 50px; height: 50px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; transition: transform 0.2s ease; }
+.call-btn:active { transform: scale(0.9); }
 .call-btn.mic { background: var(--navy-dark); }
 .call-btn.cam { background: var(--navy-dark); }
 .call-btn.end { background: var(--accent-red); }
@@ -827,6 +829,7 @@ tabButtons.forEach(btn=>{
 });
 
 function escapeHtml(str){
+  if(!str) return '';
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
@@ -937,7 +940,6 @@ if (albumGrid) {
 }
 
 /* ================= FIREBASE REALTIME CHAT GLOBAL ================= */
-// Konfigurasi Project Firebase Asli
 const firebaseConfig = {
   apiKey: "AIzaSyAeDwysoOyhq_XhHAVNLoWCS0kQfFPAEbc",
   authDomain: "kartini4-app.firebaseapp.com",
@@ -949,7 +951,7 @@ const firebaseConfig = {
   measurementId: "G-QN6Z633DJZ"
 };
 
-// Inisialisasi Firebase
+let db = null;
 if (typeof firebase !== 'undefined') {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -957,7 +959,7 @@ if (typeof firebase !== 'undefined') {
       firebase.analytics();
     }
   }
-  const db = firebase.database();
+  db = firebase.database();
   const chatRef = db.ref('global_chats');
 
   const chatMessagesEl = document.getElementById('chat-messages');
@@ -965,7 +967,7 @@ if (typeof firebase !== 'undefined') {
   const chatMsgInput = document.getElementById('chat-msg-text');
   const chatSendBtn = document.getElementById('chat-send-btn');
 
-  // Terima pesan secara realtime dari server Firebase
+  // Load Pesan Secara Realtime
   chatRef.limitToLast(100).on('value', (snapshot) => {
     chatMessagesEl.innerHTML = '';
     const data = snapshot.val();
@@ -1008,7 +1010,7 @@ if (typeof firebase !== 'undefined') {
   }
 }
 
-/* ================= PEERJS REALTIME TELEPON GRUP ================= */
+/* ================= PEERJS & FIREBASE REALTIME TELEPON GRUP ================= */
 const callGate = document.getElementById('call-gate');
 const callPassInput = document.getElementById('call-pass-input');
 const callLoginBtn = document.getElementById('call-login-btn');
@@ -1018,6 +1020,8 @@ const callGrid = document.getElementById('call-grid');
 
 let localStream = null;
 let peer = null;
+let myPeerId = null;
+let activeCalls = {};
 
 if (callLoginBtn) {
   callLoginBtn.addEventListener('click', async () => {
@@ -1035,13 +1039,34 @@ if (callLoginBtn) {
           document.getElementById('user-avatar').style.display = 'none';
         }
       } catch(err) {
-        alert("Akses kamera/mikrofon ditolak atau tidak tersedia.");
+        alert("Peringatan: Akses kamera/mikrofon ditolak atau tidak tersedia. Anda bergabung sebagai pendengar.");
       }
 
       peer = new Peer();
 
       peer.on('open', (id) => {
+        myPeerId = id;
         console.log('Peer ID Kamu:', id);
+
+        // daftarkan Peer ID ke Firebase
+        if(db) {
+          const userCallRef = db.ref('call_participants/' + id);
+          userCallRef.set({ joinedAt: firebase.database.ServerValue.TIMESTAMP });
+          userCallRef.onDisconnect().remove();
+
+          // Panggil semua peserta yang sudah ada & dengarkan peserta baru
+          db.ref('call_participants').on('child_added', (snapshot) => {
+            const remotePeerId = snapshot.key;
+            if (remotePeerId !== myPeerId) {
+              connectToPeer(remotePeerId);
+            }
+          });
+
+          db.ref('call_participants').on('child_removed', (snapshot) => {
+            const remotePeerId = snapshot.key;
+            removeRemoteStream(remotePeerId);
+          });
+        }
       });
 
       peer.on('call', (call) => {
@@ -1049,12 +1074,24 @@ if (callLoginBtn) {
         call.on('stream', (remoteStream) => {
           addRemoteStream(call.peer, remoteStream);
         });
+        activeCalls[call.peer] = call;
       });
 
     } else {
       callGateError.style.display = 'block';
     }
   });
+}
+
+function connectToPeer(remotePeerId) {
+  if (activeCalls[remotePeerId]) return;
+  const call = peer.call(remotePeerId, localStream);
+  if (call) {
+    call.on('stream', (remoteStream) => {
+      addRemoteStream(remotePeerId, remoteStream);
+    });
+    activeCalls[remotePeerId] = call;
+  }
 }
 
 function addRemoteStream(peerId, stream) {
@@ -1069,15 +1106,23 @@ function addRemoteStream(peerId, stream) {
   video.srcObject = stream;
   video.autoplay = true;
   video.playsInline = true;
-  video.style.display = 'block';
 
   const label = document.createElement('div');
   label.style.cssText = 'font-size:13px; font-weight:600; margin-top:6px;';
-  label.textContent = 'Teman Kelas (Aktif)';
+  label.textContent = 'Teman Kelas';
 
   card.appendChild(video);
   card.appendChild(label);
   callGrid.appendChild(card);
+}
+
+function removeRemoteStream(peerId) {
+  const card = document.getElementById(`card-${peerId}`);
+  if (card) card.remove();
+  if (activeCalls[peerId]) {
+    activeCalls[peerId].close();
+    delete activeCalls[peerId];
+  }
 }
 
 // Control Buttons
@@ -1090,7 +1135,7 @@ let isCamOn = true;
 
 if (toggleMicBtn) {
   toggleMicBtn.addEventListener('click', () => {
-    if (localStream) {
+    if (localStream && localStream.getAudioTracks().length > 0) {
       isMicOn = !isMicOn;
       localStream.getAudioTracks()[0].enabled = isMicOn;
       toggleMicBtn.style.background = isMicOn ? 'var(--navy-dark)' : 'var(--accent-red)';
@@ -1100,7 +1145,7 @@ if (toggleMicBtn) {
 
 if (toggleCamBtn) {
   toggleCamBtn.addEventListener('click', () => {
-    if (localStream) {
+    if (localStream && localStream.getVideoTracks().length > 0) {
       isCamOn = !isCamOn;
       localStream.getVideoTracks()[0].enabled = isCamOn;
       toggleCamBtn.style.background = isCamOn ? 'var(--navy-dark)' : 'var(--accent-red)';
@@ -1112,6 +1157,9 @@ if (endCallBtn) {
   endCallBtn.addEventListener('click', () => {
     if (localStream) {
       localStream.getTracks().forEach(track => track.stop());
+    }
+    if (db && myPeerId) {
+      db.ref('call_participants/' + myPeerId).remove();
     }
     if (peer) peer.destroy();
     callRoomActive.style.display = 'none';
