@@ -52,6 +52,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
 <!-- SDK Firebase v8, PeerJS & HTML2PDF -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -228,11 +231,34 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 
 /* PDF Header & Footer Styling */
 #pdf-report-area {
-  background: #ffffff;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-family: Arial, sans-serif !important;
   padding: 24px;
   border-radius: 16px;
-  color: #000000;
 }
+
+#pdf-report-area * {
+  box-shadow: none !important;
+  text-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+#pdf-report-area .finance-card-masuk {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+}
+
+#pdf-report-area .finance-card-keluar {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+}
+
+#pdf-report-area .finance-card-saldo {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
 .pdf-header {
   text-align: center;
   border-bottom: 3px double #000;
@@ -607,71 +633,70 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       <h1 class="page-title">Laporan Keuangan Kas Kelas</h1>
       <p class="page-desc">Rekapitulasi pemasukan dan pengeluaran kas Kelas X Kartini 4 SMA Negeri 1 Pekalongan.</p>
 
-      <button id="download-pdf-btn" class="pdf-btn">📄 Cetak / Unduh Laporan PDF</button>
+      <button id="download-pdf-btn" class="pdf-btn bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded-lg shadow transition">📄 Unduh / Cetak Laporan PDF</button>
       
       <div id="pdf-report-area">
         <!-- KOP SURAT LAPORAN RESMI -->
-        <div class="pdf-header">
-          <h2>SURAT LAPORAN KEUANGAN KELAS X KARTINI 4</h2>
-          <h3>SMA NEGERI 1 PEKALONGAN</h3>
-          <p>Jl. R.A. Kartini No.39, Keputran, Kec. Pekalongan Timur, Kota Pekalongan, Jawa Tengah 51128</p>
+        <div class="pdf-header text-center border-b pb-4 mb-6">
+          <h2 class="text-2xl font-bold uppercase tracking-wide">SURAT LAPORAN KEUANGAN KELAS X KARTINI 4</h2>
+          <h3 class="text-lg font-semibold text-gray-700">SMA NEGERI 1 PEKALONGAN</h3>
+          <p class="text-sm text-gray-500 mt-1">Jl. R.A. Kartini No.39, Keputran, Kec. Pekalongan Timur, Kota Pekalongan, Jawa Tengah 51128</p>
+          <p class="text-sm text-gray-500 mt-1">Dicetak pada: <span id="pdf-current-date">-</span></p>
         </div>
 
-        <div class="finance-cards">
-          <div class="finance-card masuk">
-            <div class="label">Total Pemasukan</div>
-            <div class="val" id="total-pemasukan">Rp 893.000</div>
+        <!-- RINGKASAN KAS -->
+        <div class="finance-cards grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="finance-card finance-card-masuk p-4 rounded-lg shadow-sm text-center">
+            <div class="label text-sm opacity-90">Total Pemasukan</div>
+            <div class="val text-xl font-bold mt-1" id="total-pemasukan">Rp 893.000</div>
           </div>
-          <div class="finance-card keluar">
-            <div class="label">Total Pengeluaran</div>
-            <div class="val" id="total-pengeluaran">Rp 78.000</div>
+          <div class="finance-card finance-card-keluar p-4 rounded-lg shadow-sm text-center">
+            <div class="label text-sm opacity-90">Total Pengeluaran</div>
+            <div class="val text-xl font-bold mt-1" id="total-pengeluaran">Rp 78.000</div>
           </div>
-          <div class="finance-card saldo">
-            <div class="label">Sisa Kas (Saldo Akhir)</div>
-            <div class="val" id="total-saldo">Rp 815.000</div>
+          <div class="finance-card finance-card-saldo p-4 rounded-lg shadow-sm text-center">
+            <div class="label text-sm opacity-90">Sisa Kas (Saldo Akhir)</div>
+            <div class="val text-xl font-bold mt-1" id="total-saldo">Rp 815.000</div>
           </div>
         </div>
 
-        <div class="card table-responsive" style="margin-bottom:24px;">
-          <table class="members-table">
+        <!-- TABEL TRANSAKSI -->
+        <div class="card table-responsive overflow-x-auto" style="margin-bottom:24px;">
+          <table class="members-table w-full text-left border-collapse border border-gray-300 text-sm">
             <thead>
-              <tr>
-                <th>No</th>
-                <th>Tanggal</th>
-                <th>Keterangan</th>
-                <th>Jenis</th>
-                <th>Jumlah</th>
-                <th>Saldo</th>
-                <th class="action-col">Aksi</th>
+              <tr class="bg-gray-100 text-gray-700">
+                <th class="border border-gray-300 p-2 text-center">No</th>
+                <th class="border border-gray-300 p-2">Tanggal</th>
+                <th class="border border-gray-300 p-2">Keterangan</th>
+                <th class="border border-gray-300 p-2 text-center">Jenis</th>
+                <th class="border border-gray-300 p-2 text-right">Jumlah</th>
+                <th class="border border-gray-300 p-2 text-right">Saldo</th>
+                <th class="border border-gray-300 p-2 text-center action-col">Aksi</th>
               </tr>
             </thead>
-            <tbody id="finance-table-body">
+            <tbody id="finance-table-body" class="divide-y divide-gray-200">
               <!-- Populated dynamically -->
             </tbody>
           </table>
         </div>
 
         <!-- TANDA TANGAN SURAT LAPORAN RESMI -->
-        <div class="pdf-footer">
-          <div class="pdf-date">Pekalongan, <span id="pdf-current-date">8 September 2026</span></div>
-          <div class="pdf-signatures">
+        <div class="pdf-footer mt-12 text-sm">
+          <div class="pdf-signatures grid grid-cols-3 text-center">
             <div class="sig-box">
-              <div>Mengetahui,</div>
-              <div>Wali Kelas X Kartini 4</div>
-              <div class="sig-space"></div>
-              <div class="sig-name">Ainun Najib, S.Pd.I.</div>
+              <p>Mengetahui,</p>
+              <p class="font-bold mt-1 mb-12">Wali Kelas X Kartini 4</p>
+              <p class="sig-name font-underline border-b border-black inline-block px-4">Ainun Najib, S.Pd.I.</p>
             </div>
             <div class="sig-box">
-              <div>Bendahara 1</div>
-              <div style="height: 18px;"></div>
-              <div class="sig-space"></div>
-              <div class="sig-name">QUEENA ADZRA CALYA AQIILAH</div>
+              <p>Dibuat Oleh,</p>
+              <p class="font-bold mt-1 mb-12">Bendahara 1</p>
+              <p class="sig-name font-underline border-b border-black inline-block px-4">QUEENA ADZRA CALYA AQIILAH</p>
             </div>
             <div class="sig-box">
-              <div>Bendahara 2</div>
-              <div style="height: 18px;"></div>
-              <div class="sig-space"></div>
-              <div class="sig-name">FARHAN DITO ARROHMAN</div>
+              <p>Menyetujui,</p>
+              <p class="font-bold mt-1 mb-12">Bendahara 2</p>
+              <p class="sig-name font-underline border-b border-black inline-block px-4">FARHAN DITO ARROHMAN</p>
             </div>
           </div>
         </div>
@@ -1229,11 +1254,11 @@ const tableBody = document.getElementById('members-table-body');
 if (tableBody) {
   tableBody.innerHTML = classMembers.map(m => `
     <tr>
-      <td>${m.no}</td>
-      <td>${m.induk}</td>
-      <td><strong>${escapeHtml(m.nama)}</strong></td>
-      <td><span class="badge-gender ${m.lp}">${m.lp}</span></td>
-      <td>${m.agama}</td>
+      <td class="border border-gray-300 p-2 text-center">${m.no}</td>
+      <td class="border border-gray-300 p-2">${m.induk}</td>
+      <td class="border border-gray-300 p-2"><strong>${escapeHtml(m.nama)}</strong></td>
+      <td class="border border-gray-300 p-2 text-center"><span class="badge-gender ${m.lp}">${m.lp}</span></td>
+      <td class="border border-gray-300 p-2">${m.agama}</td>
     </tr>
   `).join('');
 }
@@ -1279,13 +1304,13 @@ function renderFinanceTable() {
 
     html += `
       <tr>
-        <td>${index + 1}</td>
-        <td>${escapeHtml(item.date)}</td>
-        <td><strong>${escapeHtml(item.desc)}</strong></td>
-        <td><span class="badge-type ${item.type}">${item.type === 'masuk' ? 'Masuk' : 'Keluar'}</span></td>
-        <td style="color: ${item.type === 'masuk' ? '#047857' : '#B91C1C'}; font-weight:600;">${formatRupiah(item.amount)}</td>
-        <td style="font-weight:700;">${formatRupiah(item.balance)}</td>
-        <td class="action-col">
+        <td class="border border-gray-300 p-2 text-center">${index + 1}</td>
+        <td class="border border-gray-300 p-2">${escapeHtml(item.date)}</td>
+        <td class="border border-gray-300 p-2"><strong>${escapeHtml(item.desc)}</strong></td>
+        <td class="border border-gray-300 p-2 text-center"><span class="badge-type ${item.type}">${item.type === 'masuk' ? 'Masuk' : 'Keluar'}</span></td>
+        <td class="border border-gray-300 p-2 text-right" style="color: ${item.type === 'masuk' ? '#047857' : '#B91C1C'}; font-weight:600;">${formatRupiah(item.amount)}</td>
+        <td class="border border-gray-300 p-2 text-right" style="font-weight:700;">${formatRupiah(item.balance)}</td>
+        <td class="border border-gray-300 p-2 text-center action-col">
           ${isBendaharaLoggedIn ? `<button class="btn-delete" onclick="deleteTx(${index})">🗑️ Hapus</button>` : '-'}
         </td>
       </tr>
@@ -1366,27 +1391,46 @@ if (addTxBtn) {
 const downloadPdfBtn = document.getElementById('download-pdf-btn');
 if (downloadPdfBtn) {
   downloadPdfBtn.addEventListener('click', () => {
-    // Update tanggal di surat PDF sesuai tanggal hari cetak
+    // Set tanggal cetak otomatis
     const dateElement = document.getElementById('pdf-current-date');
     if (dateElement) {
       const today = new Date();
-      dateElement.textContent = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      dateElement.textContent = today.toLocaleDateString('id-ID', { 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+      });
     }
 
     const element = document.getElementById('pdf-report-area');
     
-    document.querySelectorAll('.action-col').forEach(col => col.style.display = 'none');
+    // Sembunyikan kolom aksi sebelum membuat PDF
+    const actionCols = document.querySelectorAll('.action-col');
+    actionCols.forEach(col => col.style.display = 'none');
 
+    // Konfigurasi html2pdf
     const opt = {
-      margin:       [0.4, 0.4, 0.4, 0.4],
+      margin:       [0.3, 0.3, 0.3, 0.3],
       filename:     'Laporan_Keuangan_X_Kartini_4.pdf',
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2 },
-      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+      html2canvas:  { 
+        scale: 2, 
+        useCORS: true, 
+        logging: false,
+        letterRendering: true,
+        backgroundColor: '#ffffff'
+      },
+      jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
     };
 
+    // Proses pembuatan file PDF
     html2pdf().set(opt).from(element).save().then(() => {
-      document.querySelectorAll('.action-col').forEach(col => col.style.display = '');
+      // Kembalikan tampilan kolom aksi setelah selesai
+      actionCols.forEach(col => col.style.display = '');
+    }).catch(err => {
+      console.error('Gagal membuat PDF:', err);
+      actionCols.forEach(col => col.style.display = '');
+      alert('Gagal mengunduh PDF. Silakan coba lagi.');
     });
   });
 }
@@ -1441,338 +1485,6 @@ if (albumGrid) {
     </div>
   `).join('');
 }
-
-/* ================= FIREBASE REALTIME CHAT GLOBAL ================= */
-const firebaseConfig = {
-  apiKey: "AIzaSyAeDwysoOyhq_XhHAVNLoWCS0kQfFPAEbc",
-  authDomain: "kartini4-app.firebaseapp.com",
-  databaseURL: "https://kartini4-app-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "kartini4-app",
-  storageBucket: "kartini4-app.firebasestorage.app",
-  messagingSenderId: "125609530806",
-  appId: "1:125609530806:web:8269966d3be92beb111d17",
-  measurementId: "G-QN6Z633DJZ"
-};
-
-let db = null;
-if (typeof firebase !== 'undefined') {
-  if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-    if (typeof firebase.analytics === 'function') {
-      firebase.analytics();
-    }
-  }
-  db = firebase.database();
-  const chatRef = db.ref('global_chats');
-
-  const chatMessagesEl = document.getElementById('chat-messages');
-  const chatSenderInput = document.getElementById('chat-sender');
-  const chatMsgInput = document.getElementById('chat-msg-text');
-  const chatSendBtn = document.getElementById('chat-send-btn');
-
-  chatRef.limitToLast(100).on('value', (snapshot) => {
-    chatMessagesEl.innerHTML = '';
-    const data = snapshot.val();
-    if (data) {
-      Object.keys(data).forEach(key => {
-        const m = data[key];
-        chatMessagesEl.innerHTML += `
-          <div class="chat-bubble">
-            <div class="sender-name">${escapeHtml(m.sender)}</div>
-            <div class="msg-text">${escapeHtml(m.text)}</div>
-            <div class="msg-time">${m.time}</div>
-          </div>
-        `;
-      });
-      chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
-    }
-  });
-
-  function sendChatMessage() {
-    const sender = chatSenderInput.value.trim() || 'Siswa Kartini 4';
-    const text = chatMsgInput.value.trim();
-    if (!text) return;
-
-    const now = new Date();
-    const timeStr = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-
-    chatRef.push({
-      sender: sender,
-      text: text,
-      time: timeStr,
-      timestamp: firebase.database.ServerValue.TIMESTAMP
-    });
-
-    chatMsgInput.value = '';
-  }
-
-  if (chatSendBtn) {
-    chatSendBtn.addEventListener('click', sendChatMessage);
-    chatMsgInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') sendChatMessage(); });
-  }
-}
-
-/* ================= PEERJS & FIREBASE REALTIME TELEPON GRUP ================= */
-const callGate = document.getElementById('call-gate');
-const callPassInput = document.getElementById('call-pass-input');
-const callLoginBtn = document.getElementById('call-login-btn');
-const callGateError = document.getElementById('call-gate-error');
-const callRoomActive = document.getElementById('call-room-active');
-const callGrid = document.getElementById('call-grid');
-
-let localStream = null;
-let peer = null;
-let myPeerId = null;
-let activeCalls = {};
-
-if (callLoginBtn) {
-  callLoginBtn.addEventListener('click', async () => {
-    if (callPassInput.value.trim() === 'Xkartini4') {
-      callGate.style.display = 'none';
-      callRoomActive.style.display = 'flex';
-      callGateError.style.display = 'none';
-
-      try {
-        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-        const localVideo = document.getElementById('local-video');
-        if (localVideo) {
-          localVideo.srcObject = localStream;
-          localVideo.style.display = 'block';
-          document.getElementById('user-avatar').style.display = 'none';
-        }
-      } catch(err) {
-        alert("Peringatan: Akses kamera/mikrofon ditolak atau tidak tersedia. Anda bergabung sebagai pendengar.");
-      }
-
-      peer = new Peer();
-
-      peer.on('open', (id) => {
-        myPeerId = id;
-
-        if(db) {
-          const userCallRef = db.ref('call_participants/' + id);
-          userCallRef.set({ joinedAt: firebase.database.ServerValue.TIMESTAMP });
-          userCallRef.onDisconnect().remove();
-
-          db.ref('call_participants').on('child_added', (snapshot) => {
-            const remotePeerId = snapshot.key;
-            if (remotePeerId !== myPeerId) {
-              connectToPeer(remotePeerId);
-            }
-          });
-
-          db.ref('call_participants').on('child_removed', (snapshot) => {
-            const remotePeerId = snapshot.key;
-            removeRemoteStream(remotePeerId);
-          });
-        }
-      });
-
-      peer.on('call', (call) => {
-        call.answer(localStream);
-        call.on('stream', (remoteStream) => {
-          addRemoteStream(call.peer, remoteStream);
-        });
-        activeCalls[call.peer] = call;
-      });
-
-    } else {
-      callGateError.style.display = 'block';
-    }
-  });
-}
-
-function connectToPeer(remotePeerId) {
-  if (activeCalls[remotePeerId]) return;
-  const call = peer.call(remotePeerId, localStream);
-  if (call) {
-    call.on('stream', (remoteStream) => {
-      addRemoteStream(remotePeerId, remoteStream);
-    });
-    activeCalls[remotePeerId] = call;
-  }
-}
-
-function addRemoteStream(peerId, stream) {
-  if (document.getElementById(`card-${peerId}`)) return;
-
-  const card = document.createElement('div');
-  card.className = 'call-avatar-card';
-  card.id = `card-${peerId}`;
-
-  const video = document.createElement('video');
-  video.className = 'video-preview';
-  video.srcObject = stream;
-  video.autoplay = true;
-  video.playsInline = true;
-
-  const label = document.createElement('div');
-  label.style.cssText = 'font-size:13px; font-weight:600; margin-top:6px;';
-  label.textContent = 'Teman Kelas';
-
-  card.appendChild(video);
-  card.appendChild(label);
-  callGrid.appendChild(card);
-}
-
-function removeRemoteStream(peerId) {
-  const card = document.getElementById(`card-${peerId}`);
-  if (card) card.remove();
-  if (activeCalls[peerId]) {
-    activeCalls[peerId].close();
-    delete activeCalls[peerId];
-  }
-}
-
-const toggleMicBtn = document.getElementById('toggle-mic');
-const toggleCamBtn = document.getElementById('toggle-cam');
-const endCallBtn = document.getElementById('end-call');
-
-let isMicOn = true;
-let isCamOn = true;
-
-if (toggleMicBtn) {
-  toggleMicBtn.addEventListener('click', () => {
-    if (localStream && localStream.getAudioTracks().length > 0) {
-      isMicOn = !isMicOn;
-      localStream.getAudioTracks()[0].enabled = isMicOn;
-      toggleMicBtn.style.background = isMicOn ? 'var(--navy-dark)' : 'var(--accent-red)';
-    }
-  });
-}
-
-if (toggleCamBtn) {
-  toggleCamBtn.addEventListener('click', () => {
-    if (localStream && localStream.getVideoTracks().length > 0) {
-      isCamOn = !isCamOn;
-      localStream.getVideoTracks()[0].enabled = isCamOn;
-      toggleCamBtn.style.background = isCamOn ? 'var(--navy-dark)' : 'var(--accent-red)';
-    }
-  });
-}
-
-if (endCallBtn) {
-  endCallBtn.addEventListener('click', () => {
-    if (localStream) {
-      localStream.getTracks().forEach(track => track.stop());
-    }
-    if (db && myPeerId) {
-      db.ref('call_participants/' + myPeerId).remove();
-    }
-    if (peer) peer.destroy();
-    callRoomActive.style.display = 'none';
-    callGate.style.display = 'block';
-    callPassInput.value = '';
-  });
-}
-
-/* ================= MUSIC PLAYER LOGIC ================= */
-const songs = [
-  { title: "Kisah Klasik", artist: "Sheila On 7", src: "lagu1.mp3" },
-  { title: "Masa SMA", artist: "Kenangan Sekolah", src: "lagu2.mp3" },
-  { title: "Sahabat Sejati", artist: "Sheila On 7", src: "lagu3.mp3" }
-];
-
-let currentSongIndex = 0;
-const audio = document.getElementById('audioPlayer');
-const npTitle = document.getElementById('np-title');
-const npArtist = document.getElementById('np-artist');
-const npDisc = document.getElementById('np-disc');
-const playBtn = document.getElementById('play-btn');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-const progressBar = document.getElementById('progress-bar');
-const progressFill = document.getElementById('progress-fill');
-const playlistList = document.getElementById('playlist-list');
-const fabIconPlay = document.getElementById('fab-icon-play');
-const fabIconPause = document.getElementById('fab-icon-pause');
-
-function loadSong(index) {
-  currentSongIndex = index;
-  const song = songs[currentSongIndex];
-  npTitle.textContent = song.title;
-  npArtist.textContent = song.artist;
-  audio.src = song.src;
-  updatePlaylistUI();
-}
-
-function playSong() {
-  audio.play();
-  playBtn.textContent = '⏸';
-  fabIconPlay.style.display = 'none';
-  fabIconPause.style.display = 'block';
-  npDisc.style.animationPlayState = 'running';
-}
-
-function pauseSong() {
-  audio.pause();
-  playBtn.textContent = '▶';
-  fabIconPlay.style.display = 'block';
-  fabIconPause.style.display = 'none';
-  npDisc.style.animationPlayState = 'paused';
-}
-
-playBtn.addEventListener('click', () => {
-  if(audio.paused){ playSong(); } else { pauseSong(); }
-});
-
-prevBtn.addEventListener('click', () => {
-  currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-  loadSong(currentSongIndex); playSong();
-});
-
-nextBtn.addEventListener('click', () => {
-  currentSongIndex = (currentSongIndex + 1) % songs.length;
-  loadSong(currentSongIndex); playSong();
-});
-
-audio.addEventListener('timeupdate', () => {
-  if(audio.duration){
-    const percent = (audio.currentTime / audio.duration) * 100;
-    progressFill.style.width = percent + '%';
-  }
-});
-
-audio.addEventListener('ended', () => {
-  currentSongIndex = (currentSongIndex + 1) % songs.length;
-  loadSong(currentSongIndex); playSong();
-});
-
-progressBar.addEventListener('click', (e) => {
-  const width = progressBar.clientWidth;
-  const clickX = e.offsetX;
-  if(audio.duration){
-    audio.currentTime = (clickX / width) * audio.duration;
-  }
-});
-
-function renderPlaylist() {
-  playlistList.innerHTML = songs.map((s, idx) => `
-    <div class="playlist-item ${idx === currentSongIndex ? 'active' : ''}" onclick="playPlaylistItem(${idx})">
-      <span>${s.title} - <b>${s.artist}</b></span>
-      <span>${idx === currentSongIndex ? '🎵' : ''}</span>
-    </div>
-  `).join('');
-}
-
-function updatePlaylistUI() {
-  const items = playlistList.querySelectorAll('.playlist-item');
-  items.forEach((item, idx) => {
-    if(idx === currentSongIndex){ item.classList.add('active'); }
-    else { item.classList.remove('active'); }
-  });
-}
-
-window.playPlaylistItem = function(idx) {
-  loadSong(idx); playSong();
-};
-
-const musicFab = document.getElementById('music-fab');
-const musicPanel = document.getElementById('music-panel');
-musicFab.addEventListener('click', () => { musicPanel.classList.toggle('open'); });
-
-loadSong(0);
-renderPlaylist();
 
 })();
 </script>
