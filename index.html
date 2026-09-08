@@ -52,11 +52,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- SDK Firebase v8 & PeerJS -->
+<!-- SDK Firebase v8, PeerJS & HTML2PDF -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
 <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
 :root{
@@ -207,6 +208,24 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
   display: flex;align-items: center;justify-content: space-between;gap: 12px;flex-wrap: wrap;border: 1px solid rgba(225, 48, 108, 0.2);
 }
 
+/* Keuangan Styles */
+.finance-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.finance-card { padding: 20px; border-radius: 16px; color: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.finance-card.masuk { background: linear-gradient(135deg, #10B981, #047857); }
+.finance-card.keluar { background: linear-gradient(135deg, #EF4444, #B91C1C); }
+.finance-card.saldo { background: linear-gradient(135deg, #0284C7, #0369A1); }
+.finance-card .label { font-size: 12px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+.finance-card .val { font-size: 24px; font-family: var(--font-display); font-weight: 700; margin-top: 6px; }
+.badge-type { display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; font-family: var(--font-mono); }
+.badge-type.masuk { background: #D1FAE5; color: #047857; }
+.badge-type.keluar { background: #FEE2E2; color: #B91C1C; }
+.bendahara-form { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.form-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.form-row input, .form-row select { flex: 1; min-width: 140px; }
+.btn-delete { background: #EF4444; color: white; border: none; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+.btn-delete:hover { background: #B91C1C; }
+.pdf-btn { background: #059669; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; font-family: var(--font-display); cursor: pointer; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
+
 /* Anggota Kelas Table */
 .table-responsive { overflow-x: auto; }
 .members-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
@@ -313,7 +332,7 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .orga-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease, filter 0.5s ease; }
 .orga-card:hover img, .orga-card.active img { transform: scale(1.08); filter: brightness(0.6); }
 .orga-card .orga-card-label {
-  position: absolute; bottom: 0; inset-x: 0; padding: 16px 14px;
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 16px 14px;
   background: linear-gradient(0deg, rgba(12,74,110,0.95) 0%, rgba(12,74,110,0.6) 70%, transparent 100%);
   color: #ffffff; z-index: 2; transition: opacity 0.3s ease;
 }
@@ -409,7 +428,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
   <div class="intro-logos">
     <img src="logo1.png" alt="Logo SMAN 1 Pekalongan" class="intro-logo-img">
     <img src="logo2.jpg" alt="Logo Kartini 4" class="intro-logo-img">
-    <img src="logo3.jpg" alt="Logo Eufouria" class="intro-logo-img" onerror="this.onerror=null; this.src='logo3.png';">
+    <img src="logo3.jpg" alt="Logo Eufouria" class="intro-logo-img" onerror="this.src='logo3.png';">
   </div>
   <div class="intro-eyebrow">XEUFORIA | Go go four fighting</div>
   <h1 class="intro-title">Kelas X. Kartini 4</h1>
@@ -428,7 +447,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
         <div class="brand-logos">
           <img src="logo1.png" alt="Logo SMAN 1 Pekalongan" class="brand-logo-img">
           <img src="logo2.jpg" alt="Logo Kartini 4" class="brand-logo-img">
-          <img src="logo3.jpg" alt="Logo Eufouria" class="brand-logo-img" onerror="this.onerror=null; this.src='logo3.png';">
+          <img src="logo3.jpg" alt="Logo Eufouria" class="brand-logo-img" onerror="this.src='logo3.png';">
         </div>
         <span>Kelas X. Kartini 4</span>
       </div>
@@ -451,6 +470,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
 
     <nav class="tabs" id="nav-tabs">
       <button data-tab="beranda" class="active">Beranda</button>
+      <button data-tab="keuangan">Keuangan Kelas</button>
       <button data-tab="piket">Jadwal Piket</button>
       <button data-tab="anggota">Anggota Kelas</button>
       <button data-tab="ultah">Tanggal Lahir</button>
@@ -512,7 +532,83 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
         <div class="hero-orb-scene">
           <img src="logo1.png" alt="Logo SMAN 1 Pekalongan" class="hero-logo-showcase">
           <img src="logo2.jpg" alt="Logo Kartini 4" class="hero-logo-showcase">
-          <img src="logo3.jpg" alt="Logo Eufouria" class="hero-logo-showcase" onerror="this.onerror=null; this.src='logo3.png';">
+          <img src="logo3.jpg" alt="Logo Eufouria" class="hero-logo-showcase" onerror="this.src='logo3.png';">
+        </div>
+      </div>
+    </section>
+
+    <!-- KEUANGAN KELAS -->
+    <section class="tab" id="tab-keuangan">
+      <div class="eyebrow">Transparansi Kas</div>
+      <h1 class="page-title">Laporan Keuangan Kas Kelas</h1>
+      <p class="page-desc">Rekapitulasi pemasukan dan pengeluaran kas Kelas X Kartini 4 SMA Negeri 1 Pekalongan.</p>
+
+      <button id="download-pdf-btn" class="pdf-btn">📄 Cetak / Unduh Laporan PDF</button>
+      
+      <div id="pdf-report-area">
+        <div class="finance-cards">
+          <div class="finance-card masuk">
+            <div class="label">Total Pemasukan</div>
+            <div class="val" id="total-pemasukan">Rp 893.000</div>
+          </div>
+          <div class="finance-card keluar">
+            <div class="label">Total Pengeluaran</div>
+            <div class="val" id="total-pengeluaran">Rp 78.000</div>
+          </div>
+          <div class="finance-card saldo">
+            <div class="label">Sisa Kas (Saldo Akhir)</div>
+            <div class="val" id="total-saldo">Rp 815.000</div>
+          </div>
+        </div>
+
+        <div class="card table-responsive" style="margin-bottom:24px;">
+          <table class="members-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Tanggal</th>
+                <th>Keterangan</th>
+                <th>Jenis</th>
+                <th>Jumlah</th>
+                <th>Saldo</th>
+                <th class="action-col">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="finance-table-body">
+              <!-- Populated dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="eyebrow">Akses Khusus Bendahara</div>
+        <h3 style="margin: 0 0 10px; font-family: var(--font-display); color: var(--navy-deep);">Kelola Transaksi Kas</h3>
+        <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:16px;">Masukkan Kode PIN Akses Bendahara untuk menambah/menghapus data transaksi.</p>
+
+        <div id="bendahara-auth">
+          <div style="display:flex; gap:10px; max-width:360px;">
+            <input type="password" id="bendahara-pin-input" class="chat-input-field" placeholder="Masukkan PIN Bendahara...">
+            <button id="bendahara-login-btn" class="chat-send-btn" style="white-space:nowrap;">Buka</button>
+          </div>
+          <div id="bendahara-pin-error" class="gate-error" style="text-align:left;">Kode PIN Salah!</div>
+        </div>
+
+        <div id="bendahara-form-container" style="display:none;">
+          <div class="bendahara-form">
+            <div class="form-row">
+              <input type="date" id="tx-date" class="chat-input-field">
+              <select id="tx-type" class="chat-input-field">
+                <option value="masuk">Pemasukan (+)</option>
+                <option value="keluar">Pengeluaran (-)</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <input type="text" id="tx-desc" class="chat-input-field" placeholder="Keterangan (cth: Pembelian Spidol)">
+              <input type="number" id="tx-amount" class="chat-input-field" placeholder="Jumlah (Rp)">
+            </div>
+            <button id="add-tx-btn" class="chat-gate-btn" style="margin-top:4px;">Tambah Transaksi Data Kas</button>
+          </div>
         </div>
       </div>
     </section>
@@ -607,6 +703,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
           <h3>Agustus 🎂</h3>
           <ul>
             <li><b>7 Tgt:</b> Nauval</li>
+            <li><b>19 Tgt:</b> Nevan</li>
             <li><b>25 Tgt:</b> Putri</li>
           </ul>
         </div>
@@ -620,7 +717,7 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
         <div class="ultah-card">
           <h3>Oktober 🎂</h3>
           <ul>
-            <li class="empty">Tidak ada ulang tahun di bulan ini</li>
+            <li><b>29 Okt:</b> Anam</li>
           </ul>
         </div>
         <div class="ultah-card">
@@ -827,62 +924,62 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       </div>
       <div class="orga-photo-grid">
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="walikelas.jpg" alt="Pak Najib Ain." onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Pak+Najib+Ain.';">
+          <img src="walikelas.jpg" alt="Pak Najib Ain." onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Pak+Najib+Ain.';">
           <div class="orga-card-label"><div class="role">Wali Kelas</div><div class="name">Pak Najib Ain.</div></div>
           <div class="orga-overlay"><div class="overlay-role">Wali Kelas</div><div class="overlay-name">Pak Najib Ain.</div><div class="overlay-desc">Pembimbing & Penanggung Jawab Utama Kelas X. Kartini 4</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="ketua.jpg" alt="Kirana Haifa Saraswati" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kirana+Haifa';">
+          <img src="ketua.jpg" alt="Kirana Haifa Saraswati" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kirana+Haifa';">
           <div class="orga-card-label"><div class="role">Ketua Kelas</div><div class="name">Kirana Haifa Saraswati</div></div>
           <div class="orga-overlay"><div class="overlay-role">Ketua Kelas</div><div class="overlay-name">Kirana Haifa Saraswati</div><div class="overlay-desc">Memimpin dan mengoordinasikan seluruh kegiatan kelas X. Kartini 4.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="wakil.jpg" alt="Nevan Albryan Prasetyo" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Nevan+Albryan';">
+          <img src="wakil.jpg" alt="Nevan Albryan Prasetyo" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Nevan+Albryan';">
           <div class="orga-card-label"><div class="role">Wakil Ketua Kelas</div><div class="name">Nevan Albryan Prasetyo</div></div>
           <div class="orga-overlay"><div class="overlay-role">Wakil Ketua Kelas</div><div class="overlay-name">Nevan Albryan Prasetyo</div><div class="overlay-desc">Mendampingi ketua kelas dalam mengawasi jalannya organisasi harian.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="sekretaris.jpg" alt="Sekretaris" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Sekretaris';">
+          <img src="sekretaris.jpg" alt="Sekretaris" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Sekretaris';">
           <div class="orga-card-label"><div class="role">Sekretaris</div><div class="name">Ahmad Cairo & Uni Sa'adah</div></div>
           <div class="orga-overlay"><div class="overlay-role">Sekretaris</div><ul class="overlay-list"><li>1. Ahmad Cairo Putraryfa</li><li>2. Uni Sa'adah</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengelola pencatatan administrasi, absensi, dan jurnal harian kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="bendahara.jpg" alt="Bendahara" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Bendahara';">
+          <img src="bendahara.jpg" alt="Bendahara" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Bendahara';">
           <div class="orga-card-label"><div class="role">Bendahara</div><div class="name">Queena Adzra & Farhan Dito</div></div>
           <div class="orga-overlay"><div class="overlay-role">Bendahara</div><ul class="overlay-list"><li>1. Queena Adzra Calya Aqilah</li><li>2. Farhan Dito Arrohman</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengelola pembukuan kas serta keuangan kegiatan kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="ketertiban.jpg" alt="Ketertiban & Upacara" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Ketertiban';">
+          <img src="ketertiban.jpg" alt="Ketertiban & Upacara" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Ketertiban';">
           <div class="orga-card-label"><div class="role">Ketertiban & Upacara</div><div class="name">Adelia S. & Marieta A.</div></div>
           <div class="orga-overlay"><div class="overlay-role">Ketertiban & Upacara</div><ul class="overlay-list"><li>• Adelia Sasikirana Abdullah</li><li>• Marieta Arsha Sabriena</li></ul><div class="overlay-desc" style="margin-top:8px;">Menjaga kedisiplinan dan kesiapan kelas saat upacara dan kegiatan rutin.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="kebersihan.jpg" alt="Kebersihan" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kebersihan';">
+          <img src="kebersihan.jpg" alt="Kebersihan" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kebersihan';">
           <div class="orga-card-label"><div class="role">Kebersihan</div><div class="name">M. Roshiful & M. Zaid</div></div>
           <div class="orga-overlay"><div class="overlay-role">Kebersihan</div><ul class="overlay-list"><li>• M. Roshiful Azzam Ramadhan</li><li>• M. Zaid An Nafi</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengawasi kebersihan dan keteraturan jadwal piket ruang kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="media.jpg" alt="Design & Media" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Design+%26+Media';">
+          <img src="media.jpg" alt="Design & Media" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Design+%26+Media';">
           <div class="orga-card-label"><div class="role">Design & Media</div><div class="name">Agrafa I. & Diva Y.</div></div>
           <div class="orga-overlay"><div class="overlay-role">Design & Media</div><ul class="overlay-list"><li>• Agrafa iniezkanaya</li><li>• Diva Yudiaryati</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengelola kebutuhan dokumentasi, konten media sosial, dan estetika visual kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="kekeluargaan.jpg" alt="Kekeluargaan" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kekeluargaan';">
+          <img src="kekeluargaan.jpg" alt="Kekeluargaan" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kekeluargaan';">
           <div class="orga-card-label"><div class="role">Kekeluargaan</div><div class="name">Kemal Umar & Sultan M.</div></div>
           <div class="orga-overlay"><div class="overlay-role">Kekeluargaan</div><ul class="overlay-list"><li>• Kemal Umar Assibli</li><li>• Sultan Muhammad Al-Fatih</li></ul><div class="overlay-desc" style="margin-top:8px;">Mempererat rasa kebersamaan dan hubungan kekeluargaan sesama anggota kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="rohani.jpg" alt="Keagamaan" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Keagamaan';">
+          <img src="rohani.jpg" alt="Keagamaan" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Keagamaan';">
           <div class="orga-card-label"><div class="role">Keagamaan</div><div class="name">Abid A. & M. Rangga</div></div>
           <div class="orga-overlay"><div class="overlay-role">Keagamaan</div><ul class="overlay-list"><li>• Abid Arkan</li><li>• Muhammad Rangga Addy Putra</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengoordinasikan kegiatan ibadah serta keagamaan di lingkungan kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="perpustakaan.jpg" alt="Perpustakaan" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Perpustakaan';">
+          <img src="perpustakaan.jpg" alt="Perpustakaan" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Perpustakaan';">
           <div class="orga-card-label"><div class="role">Perpustakaan</div><div class="name">Zahra K. & Naufal Faris</div></div>
           <div class="orga-overlay"><div class="overlay-role">Perpustakaan</div><ul class="overlay-list"><li>• Zahra Khairunnisa</li><li>• Naufal Faris Adrianto</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengurus administrasi peminjaman dan pengelolaan buku pelajaran kelas.</div></div>
         </div>
         <div class="orga-card" onclick="this.classList.toggle('active')">
-          <img src="kesehatan.jpg" alt="Kesehatan & Olahraga" onerror="this.onerror=null; this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kesehatan+%26+Olahraga';">
+          <img src="kesehatan.jpg" alt="Kesehatan & Olahraga" onerror="this.src='https://via.placeholder.com/400x500/0c4a6e/ffffff?text=Kesehatan+%26+Olahraga';">
           <div class="orga-card-label"><div class="role">Kesehatan & Olahraga</div><div class="name">M. Alfinno & Frananda A.</div></div>
           <div class="orga-overlay"><div class="overlay-role">Kesehatan & Olahraga</div><ul class="overlay-list"><li>• Muhammad Alfinno Dafa Pratama</li><li>• Frananda Aditya Kurniawan</li></ul><div class="overlay-desc" style="margin-top:8px;">Mengoordinasikan perlengkapan olahraga dan kesehatan fisik siswa.</div></div>
         </div>
@@ -1033,6 +1130,154 @@ if (tableBody) {
   `).join('');
 }
 
+/* ================= KEUANGAN KELAS LOGIC ================= */
+const initialFinanceData = [
+  { no: 1, date: "22 Juli 2026", desc: "Pemasukan Kas Awal", type: "masuk", amount: 150000, balance: 150000 },
+  { no: 2, date: "22 Juli 2026", desc: "Pembelian Buku Kas", type: "keluar", amount: 15000, balance: 135000 },
+  { no: 3, date: "23 Juli 2026", desc: "Fotocopy Data Siswa", type: "keluar", amount: 19000, balance: 116000 },
+  { no: 4, date: "23 Agustus 2026", desc: "Pemasukan Iuran Kas Kelas", type: "masuk", amount: 384000, balance: 500000 },
+  { no: 5, date: "23 Agustus 2026", desc: "Iuran Swadaya Lomba", type: "keluar", amount: 20000, balance: 480000 },
+  { no: 6, date: "31 Agustus 2026", desc: "Pemasukan Iuran Kas Kelas", type: "masuk", amount: 217000, balance: 697000 },
+  { no: 7, date: "31 Agustus 2026", desc: "Iuran Swadaya Pilketos", type: "keluar", amount: 7000, balance: 690000 },
+  { no: 8, date: "1 September 2026", desc: "Pemasukan Iuran Kas Kelas", type: "masuk", amount: 142000, balance: 832000 },
+  { no: 9, date: "1 September 2026", desc: "Pembelian Spidol", type: "keluar", amount: 17000, balance: 815000 }
+];
+
+let financeData = JSON.parse(localStorage.getItem('kartini4_finance')) || initialFinanceData;
+let isBendaharaLoggedIn = false;
+
+function formatRupiah(number) {
+  return 'Rp ' + number.toLocaleString('id-ID');
+}
+
+function renderFinanceTable() {
+  const tbody = document.getElementById('finance-table-body');
+  if(!tbody) return;
+
+  let totalMasuk = 0;
+  let totalKeluar = 0;
+  let runningBalance = 0;
+
+  let html = '';
+  financeData.forEach((item, index) => {
+    if(item.type === 'masuk') {
+      totalMasuk += item.amount;
+      runningBalance += item.amount;
+    } else {
+      totalKeluar += item.amount;
+      runningBalance -= item.amount;
+    }
+    item.balance = runningBalance;
+
+    html += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${escapeHtml(item.date)}</td>
+        <td><strong>${escapeHtml(item.desc)}</strong></td>
+        <td><span class="badge-type ${item.type}">${item.type === 'masuk' ? 'Masuk' : 'Keluar'}</span></td>
+        <td style="color: ${item.type === 'masuk' ? '#047857' : '#B91C1C'}; font-weight:600;">${formatRupiah(item.amount)}</td>
+        <td style="font-weight:700;">${formatRupiah(item.balance)}</td>
+        <td class="action-col">
+          ${isBendaharaLoggedIn ? `<button class="btn-delete" onclick="deleteTx(${index})">🗑️ Hapus</button>` : '-'}
+        </td>
+      </tr>
+    `;
+  });
+
+  tbody.innerHTML = html;
+  document.getElementById('total-pemasukan').textContent = formatRupiah(totalMasuk);
+  document.getElementById('total-pengeluaran').textContent = formatRupiah(totalKeluar);
+  document.getElementById('total-saldo').textContent = formatRupiah(runningBalance);
+
+  localStorage.setItem('kartini4_finance', JSON.stringify(financeData));
+}
+
+window.deleteTx = function(index) {
+  if (confirm("Apakah Anda yakin ingin menghapus transaksi ini?")) {
+    financeData.splice(index, 1);
+    renderFinanceTable();
+  }
+};
+
+renderFinanceTable();
+
+/* Bendahara PIN Authentication */
+const bendaharaLoginBtn = document.getElementById('bendahara-login-btn');
+const bendaharaPinInput = document.getElementById('bendahara-pin-input');
+const bendaharaPinError = document.getElementById('bendahara-pin-error');
+const bendaharaAuth = document.getElementById('bendahara-auth');
+const bendaharaFormContainer = document.getElementById('bendahara-form-container');
+
+if (bendaharaLoginBtn) {
+  bendaharaLoginBtn.addEventListener('click', () => {
+    if (bendaharaPinInput.value.trim() === 'XK4123') {
+      isBendaharaLoggedIn = true;
+      bendaharaAuth.style.display = 'none';
+      bendaharaFormContainer.style.display = 'block';
+      bendaharaPinError.style.display = 'none';
+      renderFinanceTable();
+    } else {
+      bendaharaPinError.style.display = 'block';
+    }
+  });
+}
+
+const addTxBtn = document.getElementById('add-tx-btn');
+if (addTxBtn) {
+  addTxBtn.addEventListener('click', () => {
+    const dateVal = document.getElementById('tx-date').value;
+    const typeVal = document.getElementById('tx-type').value;
+    const descVal = document.getElementById('tx-desc').value.trim();
+    const amountVal = parseFloat(document.getElementById('tx-amount').value);
+
+    if (!descVal || isNaN(amountVal) || amountVal <= 0) {
+      alert("Harap isi deskripsi dan jumlah transaksi dengan benar!");
+      return;
+    }
+
+    let dateFormatted = dateVal ? new Date(dateVal).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }) : new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    financeData.push({
+      no: financeData.length + 1,
+      date: dateFormatted,
+      desc: descVal,
+      type: typeVal,
+      amount: amountVal,
+      balance: 0
+    });
+
+    renderFinanceTable();
+
+    document.getElementById('tx-desc').value = '';
+    document.getElementById('tx-amount').value = '';
+    alert("Transaksi kas berhasil ditambahkan!");
+  });
+}
+
+/* Ekspor Keuangan ke PDF */
+const downloadPdfBtn = document.getElementById('download-pdf-btn');
+if (downloadPdfBtn) {
+  downloadPdfBtn.addEventListener('click', () => {
+    const element = document.getElementById('pdf-report-area');
+    
+    // Sembunyikan kolom aksi sementara sebelum mengunduh PDF
+    document.querySelectorAll('.action-col').forEach(col => col.style.display = 'none');
+
+    const opt = {
+      margin:       [0.5, 0.5, 0.5, 0.5],
+      filename:     'Laporan_Keuangan_X_Kartini_4.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(() => {
+      // Tampilkan kembali kolom aksi setelah selesai download
+      document.querySelectorAll('.action-col').forEach(col => col.style.display = '');
+    });
+  });
+}
+
 /* Meja Grid */
 const mejaGrid = document.getElementById('meja-grid');
 if (mejaGrid) {
@@ -1040,7 +1285,7 @@ if (mejaGrid) {
   for (let i = 1; i <= 18; i++) {
     mejaItemsHTML += `
       <div class="porthole">
-        <img src="meja${i}.jpg" alt="Meja ${i}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e0f2fe/0369a1?text=MEJA+${i}';" loading="lazy">
+        <img src="meja${i}.jpg" alt="Meja ${i}" onerror="this.src='https://via.placeholder.com/600x350/e0f2fe/0369a1?text=MEJA+${i}';" loading="lazy">
         <div class="num">Meja #${i}</div>
         <div class="cap">Teman Sebangku Meja ${i}</div>
       </div>
@@ -1066,7 +1311,7 @@ const photoGrid = document.getElementById('photo-grid');
 if (photoGrid) {
   photoGrid.innerHTML = Array.from({length: 10}, (_, i) => `
     <div class="porthole">
-      <img src="foto${i+1}.jpg" alt="Foto #${i+1}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=FOTO+${i+1}';" loading="lazy">
+      <img src="foto${i+1}.jpg" alt="Foto #${i+1}" onerror="this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=FOTO+${i+1}';" loading="lazy">
       <div class="num">#${String(i+1).padStart(2,'0')}</div>
       <div class="cap">Foto Kenangan #${i+1}</div>
     </div>
@@ -1077,7 +1322,7 @@ const albumGrid = document.getElementById('album-grid');
 if (albumGrid) {
   albumGrid.innerHTML = Array.from({length: 10}, (_, i) => `
     <div class="porthole">
-      <img src="foto${i+1}.jpg" alt="Album #${i+1}" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=ALBUM+${i+1}';" loading="lazy">
+      <img src="foto${i+1}.jpg" alt="Album #${i+1}" onerror="this.src='https://via.placeholder.com/600x350/e2e8f0/0f172a?text=ALBUM+${i+1}';" loading="lazy">
       <div class="num">#${String(i+1).padStart(2,'0')}</div>
       <div class="cap">Album Kenangan #${i+1}</div>
     </div>
