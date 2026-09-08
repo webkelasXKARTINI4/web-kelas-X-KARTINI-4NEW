@@ -502,3 +502,76 @@ footer { text-align: center; padding: 30px; border-top: 1px solid rgba(255, 255,
         font-size: 22px;
     }
 }
+
+/* Styling Khusus Cetak PDF & Laporan */
+#pdf-report-area {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #0f172a;
+  padding-bottom: 12px;
+}
+
+.pdf-header h2 {
+  font-family: var(--font-display);
+  margin: 0;
+  font-size: 20px;
+  color: #0f172a;
+  letter-spacing: 0.05em;
+}
+
+.pdf-header h3 {
+  font-family: var(--font-display);
+  margin: 4px 0 0 0;
+  font-size: 15px;
+  color: #0284c7;
+}
+
+.pdf-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.pdf-table th {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  text-align: center !important;
+  font-size: 12px !important;
+}
+
+.pdf-table td {
+  border: 1px solid #cbd5e1 !important;
+  font-size: 13px !important;
+  padding: 8px 10px !important;
+}
+
+.pdf-table .total-row td {
+  background: #f8fafc;
+  border-top: 2px solid #0f172a !important;
+  font-size: 13px !important;
+}
+
+.pdf-footer-sign {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+  padding-right: 20px;
+}
+
+.sign-box {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: #0f172a;
+}
+
+.sign-space {
+  height: 60px;
+}
