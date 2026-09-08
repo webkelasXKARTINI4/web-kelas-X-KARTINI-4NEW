@@ -226,6 +226,70 @@ p.page-desc{color:var(--text-muted);max-width:620px;line-height:1.65;margin:0 0 
 .btn-delete:hover { background: #B91C1C; }
 .pdf-btn { background: #059669; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: bold; font-family: var(--font-display); cursor: pointer; margin-bottom: 16px; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3); }
 
+/* PDF Header & Footer Styling */
+#pdf-report-area {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 16px;
+  color: #000000;
+}
+.pdf-header {
+  text-align: center;
+  border-bottom: 3px double #000;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+.pdf-header h2 {
+  font-family: serif;
+  font-size: 20px;
+  margin: 0;
+  text-transform: uppercase;
+  color: #000;
+}
+.pdf-header h3 {
+  font-family: serif;
+  font-size: 16px;
+  margin: 4px 0 0 0;
+  text-transform: uppercase;
+  color: #000;
+}
+.pdf-header p {
+  font-size: 12px;
+  margin: 4px 0 0 0;
+  color: #333;
+}
+.pdf-footer {
+  margin-top: 30px;
+  font-size: 13px;
+  color: #000;
+}
+.pdf-date {
+  text-align: right;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+.pdf-signatures {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 15px;
+}
+.sig-box {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.sig-space {
+  height: 60px;
+}
+.sig-name {
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  display: inline-block;
+}
+
 /* Anggota Kelas Table */
 .table-responsive { overflow-x: auto; }
 .members-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
@@ -546,6 +610,13 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
       <button id="download-pdf-btn" class="pdf-btn">📄 Cetak / Unduh Laporan PDF</button>
       
       <div id="pdf-report-area">
+        <!-- KOP SURAT LAPORAN RESMI -->
+        <div class="pdf-header">
+          <h2>SURAT LAPORAN KEUANGAN KELAS X KARTINI 4</h2>
+          <h3>SMA NEGERI 1 PEKALONGAN</h3>
+          <p>Jl. R.A. Kartini No.39, Keputran, Kec. Pekalongan Timur, Kota Pekalongan, Jawa Tengah 51128</p>
+        </div>
+
         <div class="finance-cards">
           <div class="finance-card masuk">
             <div class="label">Total Pemasukan</div>
@@ -579,9 +650,34 @@ footer.site-footer{text-align:center;color:var(--text-muted);font-family:var(--f
             </tbody>
           </table>
         </div>
+
+        <!-- TANDA TANGAN SURAT LAPORAN RESMI -->
+        <div class="pdf-footer">
+          <div class="pdf-date">Pekalongan, <span id="pdf-current-date">8 September 2026</span></div>
+          <div class="pdf-signatures">
+            <div class="sig-box">
+              <div>Mengetahui,</div>
+              <div>Wali Kelas X Kartini 4</div>
+              <div class="sig-space"></div>
+              <div class="sig-name">Ainun Najib, S.Pd.I.</div>
+            </div>
+            <div class="sig-box">
+              <div>Bendahara 1</div>
+              <div style="height: 18px;"></div>
+              <div class="sig-space"></div>
+              <div class="sig-name">QUEENA ADZRA CALYA AQIILAH</div>
+            </div>
+            <div class="sig-box">
+              <div>Bendahara 2</div>
+              <div style="height: 18px;"></div>
+              <div class="sig-space"></div>
+              <div class="sig-name">FARHAN DITO ARROHMAN</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="card">
+      <div class="card" style="margin-top: 24px;">
         <div class="eyebrow">Akses Khusus Bendahara</div>
         <h3 style="margin: 0 0 10px; font-family: var(--font-display); color: var(--navy-deep);">Kelola Transaksi Kas</h3>
         <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:16px;">Masukkan Kode PIN Akses Bendahara untuk menambah/menghapus data transaksi.</p>
@@ -1270,12 +1366,19 @@ if (addTxBtn) {
 const downloadPdfBtn = document.getElementById('download-pdf-btn');
 if (downloadPdfBtn) {
   downloadPdfBtn.addEventListener('click', () => {
+    // Update tanggal di surat PDF sesuai tanggal hari cetak
+    const dateElement = document.getElementById('pdf-current-date');
+    if (dateElement) {
+      const today = new Date();
+      dateElement.textContent = today.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    }
+
     const element = document.getElementById('pdf-report-area');
     
     document.querySelectorAll('.action-col').forEach(col => col.style.display = 'none');
 
     const opt = {
-      margin:       [0.5, 0.5, 0.5, 0.5],
+      margin:       [0.4, 0.4, 0.4, 0.4],
       filename:     'Laporan_Keuangan_X_Kartini_4.pdf',
       image:        { type: 'jpeg', quality: 0.98 },
       html2canvas:  { scale: 2 },
